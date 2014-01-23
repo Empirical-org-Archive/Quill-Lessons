@@ -1,4 +1,4 @@
-class StoryChecker < ActivityEnrollment
+class StoryChecker < SimpleDelegator
   attr_accessor :context
 
   def check_input! input, saving = true

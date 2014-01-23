@@ -2,15 +2,5 @@ doctype html
 html
   = render 'application/head'
 
-  body class=body_class id=body_id
-    .sticky-footer-wrapper
-      .sticky-footer-content
-        = render 'application/header'
-
-        - if content_for(:body_content)
-          = content_for(:body_content)
-        - else
-          .container= yield
-
-    .sticky-footer-footer
-      = render 'application/footer'
+  body style="background-color: white"
+    .container style="width: 100%"= yield

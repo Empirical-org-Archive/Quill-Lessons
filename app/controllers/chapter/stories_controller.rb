@@ -5,7 +5,7 @@ class Chapter::StoriesController < Chapter::BaseController
   end
 
   def create
-    @checker = StoryChecker.find(@score.id)
+    @checker = StoryChecker.new(@score)
     @checker.context = self
     @checker.check_input!(params.delete(:_json))
     @score.reload.review!

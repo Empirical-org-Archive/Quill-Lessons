@@ -1,5 +1,4 @@
 class StoriesController < ApplicationController
-  layout 'questions_module'
   before_filter :quill_iframe
 
   def form
@@ -22,9 +21,17 @@ class StoriesController < ApplicationController
     redirect_to
   end
 
+  def homepage
+    session[:uid] = params[:uid]
+    session[:cid] = params[:cid]
+    session[:student] = :anonymous
+    @story = Story.new(_uid: session[:uid], _cid: session[:cid])
+    @assessment = Assessment.new(@story)
+  end
+
 protected
 
   def quill_iframe
-    response.headers['X-Frame-Options'] = "ALLOW-FROM #{root_url}"
+    response.headers['X-Frame-Options'] = "ALLOW-FROM #{'http://main-app.lvh.me:3000/'}"
   end
 end

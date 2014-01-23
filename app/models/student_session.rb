@@ -1,0 +1,3 @@
+class StudentSession < SimpleDelegator
+
+end

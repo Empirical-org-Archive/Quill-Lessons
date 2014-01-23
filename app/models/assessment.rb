@@ -1,5 +1,4 @@
-class Assessment < ActiveRecord::Base
-  belongs_to :chapter
+class Assessment < SimpleDelegator
   delegate :questions, to: :chunks
 
   def chunks
@@ -14,6 +13,21 @@ class Assessment < ActiveRecord::Base
     super.merge({
       rule_position: chapter.rule_position
     })
+  end
+
+  def as_json
+    {
+      body: body,
+      id: _uid
+    }
+  end
+
+  def id
+    _uid
+  end
+
+  def to_json
+    as_json.to_json
   end
 
   private

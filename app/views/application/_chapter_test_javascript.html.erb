@@ -6,7 +6,7 @@
   var chapterRule        = false;
   var chapterLesson      = false;
   chapterAssessments.add(<%= @assessment.to_json.html_safe %>);
-  var chapterAssessment  = chapterAssessments.get(<%= @assessment.id %>);
+  var chapterAssessment  = chapterAssessments.get(<%= @assessment.id.to_json.html_safe %>);
 
   <% @assessment.chunks.each_with_index do |chunk, i| %>
     <% if defined?(chunk.grammar) %>
