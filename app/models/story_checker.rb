@@ -3,6 +3,7 @@ class StoryChecker < SimpleDelegator
 
   def check_input! input, saving = true
     self.story_step_input = input
+    binding.pry
     @chunks = input.map { |c| Chunk.new(chapter, c) }.each(&:grade!)
     save! if saving
   # rescue Exception => e
