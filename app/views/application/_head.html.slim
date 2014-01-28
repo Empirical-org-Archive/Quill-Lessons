@@ -18,3 +18,51 @@ head
         #wrap { display: table ; height: 100% }
       </style>
     <![endif]-->
+
+  javascript:
+    window.Quill = {};
+
+    Quill.sendMessage = function (type, payload) {
+      var data = {
+        messageType: type,
+        payload: payload
+      }
+
+      var json = JSON.stringify(data);
+
+      window.parent.postMessage(json, 'http://quill.lvh.me:3000/');
+    };
+
+    // http://stackoverflow.com/a/14901150/1397097
+    function checkDocumentHeight (callback) {
+      var lastHeight = $(document).height()
+        , newHeight;
+
+      setInterval(function () {
+        // Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight )
+        // var body = document.body
+        //   , html = document.documentElement;
+        // console.log(body.offsetHeight);
+        newHeight = document.body.offsetHeight;
+        if (lastHeight != newHeight) callback();
+        lastHeight = newHeight;
+      }, 400);
+    }
+
+    jQuery(function ($) {
+      function postWindowSize (first) {
+        console.log('posting window size');
+
+        var data = {};
+        if (first == 'first') {
+          data.height = $(document).height();
+        } else {
+          data.height = document.body.offsetHeight;
+        }
+
+        Quill.sendMessage('resize', data);
+      }
+
+      checkDocumentHeight(postWindowSize);
+      postWindowSize('first');
+    });

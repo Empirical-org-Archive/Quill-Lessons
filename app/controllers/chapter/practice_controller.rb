@@ -1,7 +1,7 @@
 class Chapter::PracticeController < Chapter::BaseController
   before_filter :find_rule,          except: ['cheat', 'verify', 'verify_status']
   before_filter :update_progress,    except: ['cheat', 'verify', 'verify_status', 'index']
-  skip_before_filter :find_assignment, only: ['cheat', 'verify', 'verify_status']
+  skip_before_filter :find_assignment, only: ['cheat']
   prepend_before_filter :clean_step_param
   rescue_from(FlowError) { display_flow_error_message }
 
@@ -25,14 +25,13 @@ class Chapter::PracticeController < Chapter::BaseController
   end
 
   def verify
-    @score = Score.find(params[:score_id])
     update_score
     input = @score.inputs.where(step: params[:step], rule_question_id: params[:lesson_input].first.first).first
+    binding.pry
     render json: input.as_json(methods: [:first_grade, :second_grade])
   end
 
   def verify_status
-    @score = Score.find(params[:score_id])
     input = @score.inputs.where(step: params[:step], rule_question_id: params[:lesson_input].first.first).first
     render json: input.as_json(methods: [:first_grade, :second_grade])
   end
@@ -66,7 +65,7 @@ private
   end
 
   def update_score
-    @score.update_attributes! lesson_input_key => params[:lesson_input]
+    @score.send("#{lesson_input_key}=", params[:lesson_input])
   end
 
   def skipping_practice?

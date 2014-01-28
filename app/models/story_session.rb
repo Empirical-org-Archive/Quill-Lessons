@@ -1,5 +1,18 @@
+module RuleQuestionInputAccessors
+  extend ActiveSupport::Concern
+
+  %w(practice review).each do |step|
+    define_method "#{step}_step_input=" do |hash|
+      raise 'cannot be greater than 1' if hash.length > 1
+      question, input = hash.first
+      inputs.find_or_create_by(step: step, rule_question_id: question).handle_input(input)
+    end
+  end
+end
+
 class StorySession < Quill::ActivitySession
   attributes :story_step_input, :missed_rules
+  include RuleQuestionInputAccessors
 
   def unstarted?
     false
