@@ -26,7 +26,7 @@ class StoriesController < ApplicationController
     session[:cid] = params[:cid]
     session[:student] = :anonymous
     @story = Story.new(_uid: session[:uid], _cid: session[:cid])
-    @assessment = Assessment.new(@story)
+    @assessment = @story.assessment
   end
 
 protected

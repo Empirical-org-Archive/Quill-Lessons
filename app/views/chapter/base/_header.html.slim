@@ -2,16 +2,17 @@ header.con-darkgrey.story-header
   .container.clearfix
     .navbar
       .navbar-inner
-        a.brand href=root_path Quill
+        /
+          a.brand href=root_path Quill
 
-        .nav-collapse.collapse
-          ul.nav
-            - if signed_in?
-              li#m-sign-in= link_to 'Profile', profile_path
-              li#m-create-account= link_to 'Sign out', session_path, method: :delete
-            - else
-              li#m-sign-in= link_to 'Sign In', new_session_path
-              li#m-create-account= link_to 'Create Account', new_account_path
+          .nav-collapse.collapse
+            ul.nav
+              - if signed_in?
+                li#m-sign-in= link_to 'Profile', profile_path
+                li#m-create-account= link_to 'Sign out', session_path, method: :delete
+              - else
+                li#m-sign-in= link_to 'Sign In', new_session_path
+                li#m-create-account= link_to 'Create Account', new_account_path
 
         .chapter-test-header
           .header-step-list.l-extra-padding

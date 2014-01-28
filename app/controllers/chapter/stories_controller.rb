@@ -8,7 +8,8 @@ class Chapter::StoriesController < Chapter::BaseController
     @checker = StoryChecker.new(@score)
     @checker.context = self
     @checker.check_input!(params.delete(:_json))
-    @score.reload.review!
+    @score.state = 'started'
+    @score.save
 
     render layout: false
   end

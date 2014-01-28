@@ -20,7 +20,7 @@ module ChapterFlow
 
     # Let's try filling out the step information and retrying with the additional parameters.
     elsif (score.practice? || score.review?)
-      params[:step] = score.state
+      params[:step] = score.chapter_state
       params[:question_index] = score.inputs.where(step: params[:step]).count
 
       # Proceed to to the next step if they are on the review step and
@@ -202,7 +202,7 @@ class ChapterTest
       when :story
         []
       when :review
-        score.missed_rules
+        score.missed_rule_records(@context.instance_variable_get(:@context))
       end
 
       res.map{ |r| Rule.new(r, self) }

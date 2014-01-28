@@ -22,5 +22,8 @@ EmpiricalGrammar::Application.routes.draw do
     get :start
     get :resume
     get :retry
+-    patch 'verify_question' => 'chapter/practice#verify'
+-    get   'verify_question' => 'chapter/practice#verify_status'
+-    patch 'cheat'           => 'chapter/practice#cheat'
   end
 end
