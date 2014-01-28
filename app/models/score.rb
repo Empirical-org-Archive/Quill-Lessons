@@ -39,7 +39,7 @@ module ScoreState
 end
 
 class Score < ActiveRecord::Base
-  include ScoreState, RuleQuestionInputAccessors
+  include ScoreState
 
   belongs_to :classroom_chapter
   belongs_to :user
