@@ -1,6 +1,4 @@
 class StoriesController < ApplicationController
-  before_filter :quill_iframe
-
   def form
     @story = Story.new(_uid: params[:uid], _cid: params[:cid])
   end
@@ -27,11 +25,5 @@ class StoriesController < ApplicationController
     session[:student] = :anonymous
     @story = Story.new(_uid: session[:uid], _cid: session[:cid])
     @assessment = @story.assessment
-  end
-
-protected
-
-  def quill_iframe
-    response.headers['X-Frame-Options'] = "ALLOW-FROM #{ENV['QUILL_MAIN_APP_URL']}"
   end
 end
