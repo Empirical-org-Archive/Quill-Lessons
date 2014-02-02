@@ -27,7 +27,6 @@ class Chapter::PracticeController < Chapter::BaseController
   def verify
     update_score
     input = @score.inputs.where(step: params[:step], rule_question_id: params[:lesson_input].first.first).first
-    binding.pry
     render json: input.as_json(methods: [:first_grade, :second_grade])
   end
 
