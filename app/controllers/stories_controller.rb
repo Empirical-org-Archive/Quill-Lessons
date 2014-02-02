@@ -32,6 +32,6 @@ class StoriesController < ApplicationController
 protected
 
   def quill_iframe
-    response.headers['X-Frame-Options'] = "ALLOW-FROM #{'http://main-app.lvh.me:3000/'}"
+    response.headers['X-Frame-Options'] = "ALLOW-FROM #{'http://localhost:3000/'}"
   end
 end

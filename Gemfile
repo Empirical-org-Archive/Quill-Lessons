@@ -40,8 +40,11 @@ gem 'puma', group: %w(development)
 gem 'faraday_middleware'
 gem 'quill-api-client'
 
-group :test do
-  # gem 'coveralls'
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'pry-stack_explorer'
 end
 
 platforms :rbx do

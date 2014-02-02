@@ -1,20 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  include QuillAuthentication
+  before_filter :quill_iframe
   helper CMS::Helper
 
-  def admin!
-    return if current_user.try(:admin?)
-    auth_failed
-  end
+protected
 
-  def teacher!
-    return if current_user.try(:teacher?)
-    auth_failed
-  end
-
-  def student!
-    return if current_user.try(:student?)
-    auth_failed
+  def quill_iframe
+    response.headers['X-Frame-Options'] = "ALLOW-FROM #{'http://localhost:3000/'}"
   end
 end
