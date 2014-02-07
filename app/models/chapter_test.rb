@@ -93,10 +93,8 @@ protected
   # the state of the score accordingly.
   def step_after_rules_completed
     if params[:step] == 'practice'
-      score.story!
       @context.chapter_story_path(chapter)
     else
-      score.finalize!
       @context.chapter_final_path(chapter)
     end
   end

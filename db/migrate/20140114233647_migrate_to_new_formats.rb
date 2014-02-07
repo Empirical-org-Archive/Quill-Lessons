@@ -43,7 +43,7 @@ class MigrateToNewFormats < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :activity_enrollments, force: true do |t|
+    create_table :activity_sessions, force: true do |t|
       t.belongs_to :classroom_activity
       t.belongs_to :user
 
@@ -72,7 +72,7 @@ class MigrateToNewFormats < ActiveRecord::Migration
     end
 
     change_table :rule_question_inputs do |t|
-      t.belongs_to :activity_enrollment
+      t.belongs_to :activity_session
     end
 
     create_table :units, force: true do |t|

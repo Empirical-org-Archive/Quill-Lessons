@@ -18,12 +18,8 @@ class Assessment < SimpleDelegator
   def as_json
     {
       body: body,
-      id: _uid
+      id: id
     }
-  end
-
-  def id
-    _uid
   end
 
   def to_json

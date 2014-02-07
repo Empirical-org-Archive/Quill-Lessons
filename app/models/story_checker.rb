@@ -3,7 +3,7 @@ class StoryChecker < SimpleDelegator
 
   def check_input! input, saving = true
     self.story_step_input = input
-    chapter = activity(context.session[:cid])
+    chapter = activity
     raise 'missing story' if chapter.blank?
     @chunks = input.map { |c| Chunk.new(chapter, c) }.each(&:grade!)
     save! if saving

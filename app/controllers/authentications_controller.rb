@@ -1,0 +1,25 @@
+class AuthenticationsController < ApplicationController
+  skip_before_action :authenticate!
+
+  def redirect
+    redirect_to client.auth_code.authorize_url(redirect_uri: redirect_uri)
+  end
+
+  def callback
+    token = client.auth_code.get_token(params[:code], redirect_uri: redirect_uri)
+    session[:access_token] = token.token
+    redirect_to params[:back]
+  rescue OAuth2::Error
+    render text: 'failed to process.', head: 500
+  end
+
+protected
+
+  def redirect_uri
+    oauth_callback_url(back: params[:back]) # your client's redirect uri
+  end
+
+  def client
+    @client ||= Quill::Oauth.new
+  end
+end

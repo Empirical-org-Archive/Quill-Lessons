@@ -30,7 +30,7 @@ head
 
       var json = JSON.stringify(data);
 
-      window.parent.postMessage(json, '#{ENV['QUILL_MAIN_APP_URL']}');
+      window.parent.postMessage(json, '#{ENV['QUILL_SITE_URL']}');
     };
 
     // http://stackoverflow.com/a/14901150/1397097

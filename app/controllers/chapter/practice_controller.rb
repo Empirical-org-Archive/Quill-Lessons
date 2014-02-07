@@ -17,11 +17,7 @@ class Chapter::PracticeController < Chapter::BaseController
   end
 
   def index
-    if skipping_practice?
-      redirect_to chapter_story_path(@chapter)
-    else
-      redirect_to send("chapter_#{params[:step]}_path", @chapter, @chapter_test.step(params[:step].to_sym).rules.first.id)
-    end
+    redirect_to send("chapter_#{params[:step]}_path", @chapter.id, @chapter_test.step(params[:step].to_sym).rules.first.id)
   end
 
   def verify
@@ -44,7 +40,7 @@ protected
 
   def find_rule
     return true if (params[:id] || params[:"#{params[:step]}_id"]).blank?
-    @rule ||= Rule.joins(:questions).find(params[:id] || params[:"#{params[:step]}_id"])
+    @rule   ||= Rule.joins(:questions).find(params[:id] || params[:"#{params[:step]}_id"])
     @question = @rule.questions.unanswered(@score, params[:step]).sample
     # too unpredictable.. please go where you need to will not infer
     return redirect_to @chapter_test.send :next_rule_url if @question.blank?
@@ -65,10 +61,6 @@ private
 
   def update_score
     @score.send("#{lesson_input_key}=", params[:lesson_input])
-  end
-
-  def skipping_practice?
-    @chapter.practice_rules.empty? && params[:step] == "practice"
   end
 
   def lesson_input_key

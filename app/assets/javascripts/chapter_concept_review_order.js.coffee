@@ -1,4 +1,4 @@
-class window.ConceptReviewRoot extends Backbone.View
+class window.FormSeriesBase extends Backbone.View
   events:
     'click .display': 'showEdit'
     'click .save'   : 'save'
@@ -8,13 +8,15 @@ class window.ConceptReviewRoot extends Backbone.View
   field_name: 'concept_position'
 
   initialize: () ->
-    vals = JSON.parse(@$('.hidden input').val())
-    if _.isEmpty(vals) then vals = [" "]
-
-    for val in vals
-      @$('.edit .positions').append @positionTemplate(val.trim())
+    for val in @loadValues()
+      @$('.edit .positions').append @positionTemplate(val)
 
     @$('.display').html @$('.hidden input').val()
+
+  loadValues: ->
+    vals = JSON.parse(@$('.hidden input').val())
+    if _.isEmpty(vals) then vals = [" "]
+    vals
 
   showEdit: ->
     @$('.display').hide()
@@ -30,6 +32,8 @@ class window.ConceptReviewRoot extends Backbone.View
     @$('.edit .positions').append @positionTemplate()
 
   positionTemplate: (val="") ->
+    val = val.trim()
+
     $("""
       <div class="field string concept-position control-group">
         <div class="controls">
@@ -40,14 +44,41 @@ class window.ConceptReviewRoot extends Backbone.View
     """).find('textarea').val(val).end()
 
   conceptOrderString: ->
-    JSON.stringify(
-      _.map(@$('.concept-position textarea'), (el) -> $(el).val())
-    )
+    JSON.stringify(this.asJSON())
+
+  asJSON: ->
+    _.map(@$('.concept-position textarea'), (el) -> $(el).val())
 
   removeAnswer: (e) ->
     $(e.target).closest('.concept-position').remove()
 
-class window.LessonAnswerRoot extends ConceptReviewRoot
+class window.ConceptReviewRoot extends FormSeriesBase
+  positionTemplate: (val="") ->
+    if typeof val == 'string'
+      val = [val, '']
+    $("""
+      <div class="field string concept-position control-group">
+        <div class="controls">
+          <input type="text" name="rule_id[]"        value="#{val[0]}" style="width: 40px" class="rule-id">
+          <input type="text" name="question_count[]" value="#{val[1]}" style="width: 40px" class="question-count">
+          <a href="#remove" class="remove">Remove</a>
+        </div>
+      </div>
+    """).find('textarea').val(val).end()
+
+  asJSON: ->
+    _.map @$('.concept-position'), (el) ->
+      ruleId        = $(el).find('.rule-id').val()
+      questionCount = $(el).find('.question-count').val()
+      [ruleId, questionCount]
+
+  loadValues: ->
+    vals = JSON.parse(@$('.hidden input').val())
+    if _.isEmpty(vals) then vals = [" "]
+    vals
+
+
+class window.LessonAnswerRoot extends FormSeriesBase
   initialize: ->
     super JSON.parse(@$('.hidden input').val())
     _.bindAll 'save'

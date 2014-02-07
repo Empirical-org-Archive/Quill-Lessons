@@ -1,10 +1,10 @@
 class StoriesController < ApplicationController
   def form
-    @story = Story.new(_uid: params[:uid], _cid: params[:cid])
+    @story = Story.new(id: params[:uid], access_token: session[:access_token])
   end
 
   def save
-    @story = Story.new(params[:story])
+    @story = Story.new(params[:story].merge(access_token: session[:access_token]))
 
     unless @story.save
       render :form
@@ -23,7 +23,7 @@ class StoriesController < ApplicationController
     session[:uid] = params[:uid]
     session[:cid] = params[:cid]
     session[:student] = :anonymous
-    @story = Story.new(_uid: session[:uid], _cid: session[:cid])
+    @story = Story.new(id: session[:uid], access_token: session[:access_token])
     @assessment = @story.assessment
   end
 end

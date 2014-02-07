@@ -8,7 +8,7 @@ class Rule < ActiveRecord::Base
     def unanswered score, step
       answered_ids = score.inputs.where(step: step).map(&:rule_question_id)
       return all if answered_ids.empty?
-      where('id not in (?)', answered_ids)
+      where('id not in (?)', answered_ids.uniq)
     end
   end
 

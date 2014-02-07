@@ -35,7 +35,8 @@ class StorySession < Quill::ActivitySession
   end
 
   def inputs
-    RuleQuestionInput.where(activity_session_id: _uid)
+    raise 'requires id' if id.blank?
+    RuleQuestionInput.where(activity_session_id: id)
   end
 
   def missed_rule_records(context)
