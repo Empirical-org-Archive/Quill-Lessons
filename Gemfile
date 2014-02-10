@@ -38,7 +38,7 @@ gem 'rspec-rails', group: %w(development test)
 gem 'pry-rails'#, group: %w(development test)
 gem 'puma', group: %w(development)
 gem 'faraday_middleware'
-gem 'quill-api-client', path: '../ruby-api-client'
+gem 'quill-api-client'
 gem 'oauth2'
 
 group :development do
