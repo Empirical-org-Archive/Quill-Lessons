@@ -181,7 +181,7 @@ GEM
       rack (>= 1.1, < 2.0)
     puma (2.6.0-java)
       rack (>= 1.1, < 2.0)
-    quill-api-client (0.1.0)
+    quill-api-client (0.1.1)
       oauth2 (> 0)
     racc (1.4.10)
     rack (1.5.2)
