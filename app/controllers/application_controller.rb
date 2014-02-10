@@ -10,12 +10,22 @@ class ApplicationController < ActionController::Base
   end
 
   def root
+    # raise session[:user_role].inspect
+    if session[:user_role] == :admin
+      redirect_to cms_root_path
+    else
+      render text: '', head: :ok
+    end
   end
 
 protected
 
   def admin!
-    # authenticate! &&
+    return unless authenticate!
+
+    unless session[:user_role] == :admin
+      redirect_to root_path
+    end
   end
 
   def authenticate!
