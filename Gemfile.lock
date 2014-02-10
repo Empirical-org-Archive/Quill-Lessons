@@ -8,7 +8,7 @@ GIT
 PATH
   remote: ../ruby-api-client
   specs:
-    quill-api-client (0.1.0)
+    quill-api-client (0.1.1)
       oauth2 (> 0)
 
 PATH
