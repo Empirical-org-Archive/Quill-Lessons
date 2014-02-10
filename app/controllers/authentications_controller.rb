@@ -8,6 +8,7 @@ class AuthenticationsController < ApplicationController
   def callback
     token = client.auth_code.get_token(params[:code], redirect_uri: redirect_uri)
     session[:access_token] = token.token
+    binding.pry
     redirect_to params[:back]
   rescue OAuth2::Error
     render text: 'failed to process.', head: 500

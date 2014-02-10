@@ -23,6 +23,7 @@ class StoriesController < ApplicationController
     session[:uid] = params[:uid]
     session[:cid] = params[:cid]
     session[:student] = :anonymous
+    Story.new(id: session[:uid])
     @story = Story.new(id: session[:uid], access_token: session[:access_token])
     @assessment = @story.assessment
   end

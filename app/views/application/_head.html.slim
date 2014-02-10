@@ -50,6 +50,8 @@ head
     }
 
     jQuery(function ($) {
+      if (window.self == window.top) return;
+
       function postWindowSize (first) {
         console.log('posting window size');
 

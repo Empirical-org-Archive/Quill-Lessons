@@ -6,6 +6,12 @@ GIT
     iconv (1.0.3)
 
 PATH
+  remote: ../ruby-api-client
+  specs:
+    quill-api-client (0.1.0)
+      oauth2 (> 0)
+
+PATH
   remote: vendor/gems/honey-cms-0.4.7
   specs:
     honey-cms (0.4.7)
@@ -181,8 +187,6 @@ GEM
       rack (>= 1.1, < 2.0)
     puma (2.6.0-java)
       rack (>= 1.1, < 2.0)
-    quill-api-client (0.1.0)
-      oauth2 (> 0)
     racc (1.4.10)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -525,7 +529,7 @@ DEPENDENCIES
   pry-rails
   pry-stack_explorer
   puma
-  quill-api-client
+  quill-api-client!
   racc
   rails (~> 4)
   rails-backbone

@@ -80,6 +80,7 @@ class window.ConceptReviewRoot extends FormSeriesBase
 
 class window.LessonAnswerRoot extends FormSeriesBase
   initialize: ->
+    alert 'ok'
     super JSON.parse(@$('.hidden input').val())
     _.bindAll 'save'
 
