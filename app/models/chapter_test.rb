@@ -83,7 +83,7 @@ protected
   # more rules.
   def next_rule_url
     if next_rule_id.present?
-      @context.send("chapter_#{params[:step]}_path", chapter, next_rule_id)
+      @context.send("chapter_#{params[:step]}_path", chapter.id, next_rule_id)
     else
       step_after_rules_completed
     end
@@ -92,11 +92,7 @@ protected
   # this is the actual business logic for where to go next. It also updates
   # the state of the score accordingly.
   def step_after_rules_completed
-    if params[:step] == 'practice'
-      @context.chapter_story_path(chapter)
-    else
-      @context.chapter_final_path(chapter)
-    end
+    @context.chapter_final_path(chapter.id)
   end
 
   def next_index

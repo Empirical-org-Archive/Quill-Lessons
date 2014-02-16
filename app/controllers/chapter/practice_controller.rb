@@ -32,7 +32,7 @@ class Chapter::PracticeController < Chapter::BaseController
   end
 
   def cheat
-    @score = Score.find(params[:score_id])
+    @score = StorySession.new(id: params[:score_id])
     render json: { answer: RuleQuestion.find(params[:lesson_input].first.first).answers.first }
   end
 

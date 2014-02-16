@@ -101,11 +101,5 @@ window.PG.Views.ChapterAssessment = Backbone.View.extend({
       .fail(function (err) {
         debugger;
       });
-
-    mixpanel.track('story test submitted', {
-      chapter_id: this.assessment.get('chapter_id'),
-      score:      parseInt(((total - missedRules.length) / total) * 100),
-      body:       this.assessment.attributes.body.substring(0, 50)
-    });
   }
 });

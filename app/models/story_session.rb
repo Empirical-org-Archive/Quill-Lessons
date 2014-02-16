@@ -49,4 +49,18 @@ class StorySession < Quill::ActivitySession
     checker.context = context
     self.missed_rules = checker.section(:missed).chunks.map { |c| c.rule.id }
   end
+
+  def finalize!
+    # self.score_values = ScoreFinalizer.new(self).results
+    self.completed_at ||= Time.now
+    self.state = 'finished'
+
+    self.percentage = if  inputs.count == 0
+      1.0
+    else
+      inputs.map(&:score).inject(:+) / inputs.count
+    end
+
+    save!
+  end
 end

@@ -1,10 +1,9 @@
 head
   title Quill
-  = stylesheet_link_tag    'application', media: 'all'                             , 'data-turbolinks-track' => true
-  = javascript_include_tag 'application'                                           , 'data-turbolinks-track' => true
-  = javascript_include_tag 'http://demonstrations.wolfram.com/javascript/embed.js' , 'data-turbolinks-track' => true
-  = stylesheet_link_tag 'codemirror'                                               , 'data-turbolinks-track' => true
-  = javascript_include_tag 'cms'                                                   , 'data-turbolinks-track' => true
+  = stylesheet_link_tag    'application', media: 'all' , 'data-turbolinks-track' => true
+  = javascript_include_tag 'application'               , 'data-turbolinks-track' => true
+  = stylesheet_link_tag 'codemirror'                   , 'data-turbolinks-track' => true
+  = javascript_include_tag 'cms'                       , 'data-turbolinks-track' => true
 
   = csrf_meta_tags
   link href="/images/favicon.gif" rel="icon" type="image/ico"
@@ -20,51 +19,9 @@ head
     <![endif]-->
 
   javascript:
-    window.Quill = {};
-
-    Quill.sendMessage = function (type, payload) {
-      var data = {
-        messageType: type,
-        payload: payload
-      }
-
-      var json = JSON.stringify(data);
-
-      window.parent.postMessage(json, '#{ENV['QUILL_SITE_URL']}');
-    };
-
-    // http://stackoverflow.com/a/14901150/1397097
-    function checkDocumentHeight (callback) {
-      var lastHeight = $(document).height()
-        , newHeight;
-
-      setInterval(function () {
-        // Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight )
-        // var body = document.body
-        //   , html = document.documentElement;
-        // console.log(body.offsetHeight);
-        newHeight = document.body.offsetHeight;
-        if (lastHeight != newHeight) callback();
-        lastHeight = newHeight;
-      }, 400);
-    }
+    window.quill = new Quill('#{ENV['QUILL_SITE_URL']}');
 
     jQuery(function ($) {
-      if (window.self == window.top) return;
-
-      function postWindowSize (first) {
-        console.log('posting window size');
-
-        var data = {};
-        if (first == 'first') {
-          data.height = $(document).height();
-        } else {
-          data.height = document.body.offsetHeight;
-        }
-
-        Quill.sendMessage('resize', data);
-      }
-
-      checkDocumentHeight(postWindowSize);
-      postWindowSize('first');
+      quill.autoResize();
+      quill.listen();
     });

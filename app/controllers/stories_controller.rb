@@ -13,7 +13,6 @@ class StoriesController < ApplicationController
 
   def module
     session[:uid] = params[:uid]
-    session[:cid] = params[:cid]
     session[:student] = params[:student]
 
     redirect_to
@@ -21,7 +20,6 @@ class StoriesController < ApplicationController
 
   def homepage
     session[:uid] = params[:uid]
-    session[:cid] = params[:cid]
     session[:student] = :anonymous
     Story.new(id: session[:uid])
     @story = Story.new(id: session[:uid], access_token: session[:access_token])

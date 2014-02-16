@@ -49,9 +49,6 @@ EmpiricalGrammar::Application.routes.draw do
     resource :story, controller: 'chapter/stories'
 
     get :final
-    get :start
-    get :resume
-    get :retry
   end
 
   get 'oauth/redirect'    => 'authentications#redirect', as: :oauth_redirect
@@ -67,6 +64,10 @@ EmpiricalGrammar::Application.routes.draw do
     resources :rule_questions
     resources :rules
   end
+
+  patch 'verify_question' => 'chapter/practice#verify'
+  get   'verify_question' => 'chapter/practice#verify_status'
+  patch 'cheat'           => 'chapter/practice#cheat'
 
   root to: 'application#root'
 end
