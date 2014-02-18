@@ -181,8 +181,8 @@ GEM
       rack (>= 1.1, < 2.0)
     puma (2.6.0-java)
       rack (>= 1.1, < 2.0)
-    quill-api-client (0.1.1)
-      oauth2 (> 0)
+    quill-api-client (0.1.2)
+      oauth2
     racc (1.4.10)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -519,7 +519,6 @@ DEPENDENCIES
   kramdown
   mailchimp-api
   newrelic_rpm
-  oauth2
   parslet
   pg
   pry-rails
