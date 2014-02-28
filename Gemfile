@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 4'
 gem 'pg', platforms: :ruby
-gem 'activerecord-jdbcpostgresql-adapter', platforms: :jruby
 gem 'rails_12factor', group: [:production, :staging]
 
 gem 'sass-rails', '~> 4.0.0'
@@ -22,7 +21,6 @@ gem 'bcrypt-ruby', require: 'bcrypt'
 gem 'ancestry'
 gem 'kaminari'
 gem 'redcarpet', platforms: :ruby
-gem 'kramdown',  platforms: :jruby
 gem 'carrierwave'
 gem 'fog'
 gem 'aws-sdk'
@@ -32,7 +30,6 @@ gem 'slim-rails'
 gem 'taps'
 gem 'newrelic_rpm', group: :production
 gem 'unicorn', platforms: :ruby
-gem 'puma',    platforms: :jruby
 gem 'mailchimp-api', require: 'mailchimp'
 gem 'rspec-rails', group: %w(development test)
 gem 'pry-rails'#, group: %w(development test)
