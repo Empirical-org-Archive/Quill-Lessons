@@ -14,15 +14,21 @@ class StoriesController < ApplicationController
   def module
     session[:uid] = params[:uid]
     session[:student] = params[:student]
-
-    redirect_to
+    show_story
   end
 
   def homepage
     session[:uid] = params[:uid]
     session[:student] = :anonymous
+    show_story
+  end
+
+protected
+
+  def show_story
     Story.new(id: session[:uid])
     @story = Story.new(id: session[:uid], access_token: session[:access_token])
     @assessment = @story.assessment
+    render :homepage
   end
 end
