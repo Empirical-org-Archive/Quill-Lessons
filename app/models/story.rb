@@ -4,6 +4,6 @@ class Story < Quill::ActivityModel
   validates :description, presence: true
 
   def assessment
-    Assessment.new(self)
+    @assessment ||= Assessment.new(self)
   end
 end

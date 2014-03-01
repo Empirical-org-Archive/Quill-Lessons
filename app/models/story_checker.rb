@@ -7,9 +7,6 @@ class StoryChecker < SimpleDelegator
     raise 'missing story' if chapter.blank?
     @chunks = input.map { |c| Chunk.new(chapter, c) }.each(&:grade!)
     save! if saving
-  # rescue Exception => e
-  #   binding.pry
-  #   raise e
   end
 
   def chunks
