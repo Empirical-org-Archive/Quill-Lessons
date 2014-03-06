@@ -22,3 +22,5 @@ log/*.log
 tmp
 coverage
 snapshot.dump
+.rbenv-vars-local
+.rbenv-vars-remote
