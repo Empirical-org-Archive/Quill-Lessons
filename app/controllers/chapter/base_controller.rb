@@ -15,19 +15,20 @@ class Chapter::BaseController < ApplicationController
     @chapter = klass.new(id: session[:uid], access_token: session[:access_token])
 
     # first, try and see if they have already started the chapter.
-    @score = if session[:student] == :anonymous
+    @score = if session[:activity_session_id] == :anonymous
       story_session = StorySession.new(anonymous: true, activity_uid: session[:uid], access_token: session[:access_token])
-      session[:student] = story_session.id
+      session[:activity_session_id] = story_session.id
       story_session
     else
-      StorySession.new(id: session[:student], access_token: session[:access_token])
+      raise 'access token is blank' if session[:access_token].blank?
+      StorySession.new(id: session[:activity_session_id], access_token: session[:access_token])
     end
 
-    if session[:student].blank?
+    if session[:activity_session_id].blank?
       @score.activity_uid = session[:uid]
       @score.save
       raise "Failed to set ID" if @score.id.blank?
-      session[:student] = @score.id
+      session[:activity_session_id] = @score.id
     end
 
     @chapter_test = ChapterTest.new(self)

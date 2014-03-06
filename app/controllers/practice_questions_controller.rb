@@ -13,7 +13,7 @@ class PracticeQuestionsController < ApplicationController
 
   def module
     session[:uid] = params[:uid]
-    session[:student] = params[:student]
+    session[:activity_session_id] = params[:student]
 
     redirect_to chapter_practice_index_path(session[:uid])
   end

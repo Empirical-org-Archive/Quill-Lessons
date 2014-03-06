@@ -13,13 +13,13 @@ class StoriesController < ApplicationController
 
   def module
     session[:uid] = params[:uid]
-    session[:student] = params[:student]
+    session[:activity_session_id] = params[:student]
     show_story
   end
 
   def homepage
     session[:uid] = params[:uid]
-    session[:student] = :anonymous
+    session[:activity_session_id] = :anonymous
     show_story
   end
 
