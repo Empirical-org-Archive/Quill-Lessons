@@ -10,8 +10,8 @@ class AuthenticationsController < ApplicationController
     session[:access_token] = token.token
     session[:user_role] = token.params['user_info']['role'].to_sym
     redirect_to params[:back]
-  rescue OAuth2::Error
-    render text: 'failed to process.', head: 500
+  rescue OAuth2::Error => e
+    render text: e.message, head: 500
   end
 
 protected
