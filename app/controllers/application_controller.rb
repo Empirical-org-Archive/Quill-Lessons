@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :quill_iframe
-  before_action :authenticate!
+  before_action :authenticate!, except: [:start_session]
   helper CMS::Helper
 
   rescue_from OAuth2::Error do
@@ -16,6 +16,11 @@ class ApplicationController < ActionController::Base
     else
       render text: '', head: :ok
     end
+  end
+
+  def start_session
+    session[:start] = true
+    redirect_to params[:return]
   end
 
 protected

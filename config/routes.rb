@@ -22,6 +22,8 @@ class CMS::Routes
 end
 
 EmpiricalGrammar::Application.routes.draw do
+  get 'session_fix_redirect' => 'application#start_session'
+
   scope path: 'stories' do
     get 'form' => 'stories#form'
     match '' => 'stories#save', via: [:post, :put]
