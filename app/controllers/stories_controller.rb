@@ -13,7 +13,13 @@ class StoriesController < ApplicationController
 
   def module
     session[:uid] = params[:uid]
-    session[:activity_session_id] = params[:student]
+
+    session[:activity_session_id] = if params[:anonymous]
+      :anonymous
+    else
+      params[:student]
+    end
+
     show_story
   end
 
