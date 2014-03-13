@@ -29,6 +29,8 @@ protected
   end
 
   def authenticate!
+    return true if session[:activity_session_id] == :anonymous
+
     if session[:access_token].blank? && params[:anonymous].blank? && params[:student].blank?
       redirect_to oauth_redirect_path(back: request.fullpath)
       return false
