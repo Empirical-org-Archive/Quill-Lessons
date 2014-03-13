@@ -20,7 +20,6 @@ class Chapter::BaseController < ApplicationController
       session[:activity_session_id] = story_session.id
       story_session
     else
-      raise 'access token is blank' if session[:access_token].blank?
       StorySession.new(id: session[:activity_session_id], access_token: session[:access_token])
     end
 
