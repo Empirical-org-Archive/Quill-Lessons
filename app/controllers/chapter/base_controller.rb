@@ -15,7 +15,7 @@ class Chapter::BaseController < ApplicationController
     @chapter = klass.new(id: session[:uid], access_token: session[:access_token])
 
     # first, try and see if they have already started the chapter.
-    @score = if session[:activity_session_id] == :anonymous
+    @score = if session[:activity_session_id].blank? && session[:anonymous] == true
       story_session = StorySession.new(anonymous: true, activity_uid: session[:uid], access_token: session[:access_token])
       session[:activity_session_id] = story_session.id
       story_session

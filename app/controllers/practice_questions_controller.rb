@@ -12,14 +12,6 @@ class PracticeQuestionsController < ApplicationController
   end
 
   def module
-    session[:uid] = params[:uid]
-
-    session[:activity_session_id] = if params[:anonymous]
-      :anonymous
-    else
-      params[:student]
-    end
-
     redirect_to chapter_practice_index_path(session[:uid])
   end
 end

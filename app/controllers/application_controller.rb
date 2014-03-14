@@ -34,12 +34,13 @@ protected
   end
 
   def authenticate!
-    return if session[:anonymous] == true
+    establish_session_variables_from_initial_module_load
 
-    # let's remember that the session is anonymous
-    if session[:activity_session_id] == :anonymous
-      session[:anonymous] = true
-      return true
+    # we're good to go if it's anon.
+    return true if session[:anonymous] == true
+
+    if session[:activity_session_id].blank?
+      raise "We're not anonymous but there is no session id. Cannot continue."
     end
 
     # if we are at this point then there should definitely be a user signed in on quill as well as a
@@ -50,6 +51,29 @@ protected
     end
 
     true
+  end
+
+  def establish_session_variables_from_initial_module_load
+    # when Compass first loads a module it will pass in 3 params:
+    # * student: the student session id. OR:
+    # * anonymous: true. No session id.
+    # * uid: there will always be a uid.
+    return unless (params[:student].present? || params[:anonymous]) && params[:uid].present?
+
+    # let's start fresh now.
+    access_token = session.delete(:access_token)
+    reset_session
+    session[:access_token] = access_token if access_token.present?
+
+    session[:uid] = params[:uid]
+
+    if params[:student].present?
+      session[:activity_session_id] = params[:student]
+    elsif params[:anonymous]
+      session[:anonymous] = true
+    else
+      raise 'invalid scenario.'
+    end
   end
 
   def quill_iframe

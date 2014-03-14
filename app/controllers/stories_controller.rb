@@ -12,25 +12,16 @@ class StoriesController < ApplicationController
   end
 
   def module
-    session[:activity_session_id] = if params[:anonymous]
-      session.delete :access_token
-      :anonymous
-    else
-      params[:student]
-    end
-
     show_story
   end
 
   def homepage
-    session[:activity_session_id] = :anonymous
     show_story
   end
 
 protected
 
   def show_story
-    session[:uid] = params[:uid]
     Story.new(id: session[:uid])
     @story = Story.new(id: session[:uid], access_token: session[:access_token])
     @assessment = @story.assessment
