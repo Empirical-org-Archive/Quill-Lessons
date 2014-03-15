@@ -62,8 +62,10 @@ protected
 
     # let's start fresh now.
     access_token = session.delete(:access_token)
+    csrf_token = session.delete(:_csrf_token)
     reset_session
     session[:access_token] = access_token if access_token.present?
+    session[:_csrf_token] = csrf_token
 
     session[:uid] = params[:uid]
 

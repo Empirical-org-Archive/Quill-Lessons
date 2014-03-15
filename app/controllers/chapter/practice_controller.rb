@@ -1,8 +1,8 @@
 class Chapter::PracticeController < Chapter::BaseController
-  before_filter :find_rule,          except: ['cheat', 'verify', 'verify_status']
-  before_filter :update_progress,    except: ['cheat', 'verify', 'verify_status', 'index']
-  skip_before_filter :find_assignment, only: ['cheat']
-  prepend_before_filter :clean_step_param
+  before_action :find_rule,          except: ['cheat', 'verify', 'verify_status']
+  before_action :update_progress,    except: ['cheat', 'verify', 'verify_status', 'index']
+  skip_before_action :find_assignment, only: ['cheat']
+  prepend_before_action :clean_step_param
   rescue_from(FlowError) { display_flow_error_message }
 
   def show
