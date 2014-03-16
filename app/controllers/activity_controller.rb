@@ -1,7 +1,7 @@
 class ActivityController < ApplicationController
-  before_action :admin!
-  before_action :load_record, only: [:module, :form]
-  prepend_before_action :access_token!
+  before_action :admin!,                only: [:form, :save]
+  before_action :load_record,           only: [:form, :module]
+  prepend_before_action :access_token!, only: [:form, :save]
 
   def form
   end
