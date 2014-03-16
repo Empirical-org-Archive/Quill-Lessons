@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     if session[:user_role] == :admin
       redirect_to cms_root_path
     else
-      render text: '', head: :ok
+      render text: '', status: :ok
     end
   end
 
@@ -29,7 +29,7 @@ protected
     return unless authenticate!
 
     unless session[:user_role] == :admin
-      redirect_to root_path
+      render text: '', status: :unauthorized
     end
   end
 
@@ -45,12 +45,16 @@ protected
 
     # if we are at this point then there should definitely be a user signed in on quill as well as a
     # session ID that we can use. If the access token is blank let's redirect to get it.
+    access_token!
+
+    true
+  end
+
+  def access_token!
     if session[:access_token].blank?
       redirect_to oauth_redirect_path(back: request.fullpath)
       return false
     end
-
-    true
   end
 
   def establish_session_variables_from_initial_module_load

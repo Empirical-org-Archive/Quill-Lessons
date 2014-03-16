@@ -1,17 +1,15 @@
-class PracticeQuestionsController < ApplicationController
-  def form
-    @story = PracticeQuestion.new(id: params[:uid], access_token: session[:access_token])
-  end
-
-  def save
-    @story = PracticeQuestion.new(params[:story])
-
-    unless @story.save
-      render :form
-    end
-  end
-
+class PracticeQuestionsController < ActivityController
   def module
     redirect_to chapter_practice_index_path(session[:uid])
+  end
+
+protected
+
+  def model
+    PracticeQuestion
+  end
+
+  def subject
+    :practice_question
   end
 end
