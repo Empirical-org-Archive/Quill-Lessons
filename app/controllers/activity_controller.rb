@@ -3,9 +3,16 @@ class ActivityController < ApplicationController
   before_action :load_record,           only: [:form, :module]
   prepend_before_action :access_token!, only: [:form, :save]
 
+  # handle display of a Compass activity. Specifics are implemented in
+  # subclasses of ActivityController.
+  def module
+  end
+
+  # display form to create / modify activities.
   def form
   end
 
+  # save data from form.
   def save
     @record = model.new(params[subject].merge(access_token: session[:access_token]))
 
