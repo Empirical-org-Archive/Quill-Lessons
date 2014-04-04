@@ -1,7 +1,8 @@
 class Rule < ActiveRecord::Base
+  include Flags
   belongs_to :category
   belongs_to :workbook
-  validates :title, presence: true
+  validates :name, presence: true
   has_many :examples, class_name: 'RuleExample'
 
   has_many :questions, class_name: 'RuleQuestion' do
