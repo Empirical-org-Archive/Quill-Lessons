@@ -37,6 +37,7 @@ module EmpiricalGrammar
     config.autoload_paths += %W(
       #{config.root}/app/controllers/concerns
       #{config.root}/lib
+      #{config.root}/lib/models
     )
 
     # config.eager_load_paths += ["#{Rails.root}/lib}"]
