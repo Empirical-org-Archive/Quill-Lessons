@@ -2,7 +2,17 @@ class PracticeQuestion < Quill::ActivityModel
   attributes :rule_position
 
   def rule_position_text= string
-    self.rule_position = JSON.parse(string).map(&:strip)
+    array = string.flatten if string.is_a? Array
+
+    array ||= JSON.parse(string).map do |item|
+      if item.respond_to?(:strip)
+        item.strip
+      else
+        item
+      end
+    end
+
+    self.rule_position = array
   end
 
   def rule_position_text
