@@ -43,7 +43,7 @@ protected
     # we're good to go if it's anon.
     return true if session[:anonymous] == true
 
-    if session[:activity_session_id].blank?
+    if missing_activity_session?
       raise "We're not anonymous but there is no session id. Cannot continue."
     end
 
@@ -53,6 +53,19 @@ protected
     access_token!
 
     true
+  end
+
+  def requires_activity_session!
+    @requires_activity_session = true
+  end
+
+  def missing_activity_session?
+    # a session identifier is present. We're good to go.
+    return false if session[:activity_session_id].present?
+
+    # If we are loading a module (a.k.a. the activity) a session is required.
+    # otherwise we don't need one.
+    !!@requires_activity_session
   end
 
   # this method checks for the presence of an auth token and redirects to the
@@ -87,7 +100,7 @@ protected
     elsif params[:anonymous]
       session[:anonymous] = true
     else
-      raise 'invalid scenario.'
+      raise 'invalid (impossible) scenario.'
     end
   end
 

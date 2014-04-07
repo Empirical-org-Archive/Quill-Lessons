@@ -53,8 +53,8 @@ EmpiricalGrammar::Application.routes.draw do
     get :final
   end
 
-  get 'oauth/redirect'    => 'authentications#redirect', as: :oauth_redirect
-  get 'oauth/callback'    => 'authentications#callback', as: :oauth_callback
+  get 'oauth/redirect' => 'authentications#redirect', as: :oauth_redirect
+  get 'oauth/callback' => 'authentications#callback', as: :oauth_callback
 
   patch 'verify_question' => 'chapter/practice#verify'
   get   'verify_question' => 'chapter/practice#verify_status'
