@@ -30,6 +30,7 @@ protected
     return unless authenticate!
 
     unless session[:user_role] == :admin
+      reset_session
       render text: '', status: :unauthorized
     end
   end

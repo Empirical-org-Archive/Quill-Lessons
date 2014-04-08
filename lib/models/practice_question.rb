@@ -20,6 +20,11 @@ class PracticeQuestion < Quill::ActivityModel
   end
 
   def practice_rules
-    rule_position.map{ |id| Rule.find(id) }
+    ids = if rule_position.first.is_a?(Array)
+      rule_position.map(&:first)
+    else
+      rule_position
+    end
+    ids.map{ |id| Rule.find(id) }
   end
 end

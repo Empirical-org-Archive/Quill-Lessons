@@ -17,7 +17,7 @@ article.simple-rounded-box
       - category.rules.each do |rule|
         .line.rule-line
           .title.rule-question-title
-            = "#{rule.title} \{\|#{rule.id}\}"
+            = "#{rule.name} \{\|#{rule.id}\}"
 
           .actions
             .add= link_to image_tag('newlesson.png', title: 'New question for this rule'), new_cms_rule_question_path(rule: rule)
