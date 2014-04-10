@@ -4,7 +4,6 @@ br
 .simple-rounded-box
   = form_for @story, url: url_for(controller: 'stories', action: 'save', subdomain: 'questions-module'), layout: 'vertical' do |f|
     = f.hidden :id
-    = f.string :name, label: "Story Title"
-    = f.text :description
+
     = f.text :body
     = f.actions save: 'Save'

@@ -54,8 +54,9 @@ class window.FormSeriesBase extends Backbone.View
 
 class window.ConceptReviewRoot extends FormSeriesBase
   positionTemplate: (val="") ->
-    if typeof val == 'string'
+    if typeof val == 'string' || typeof val == 'number'
       val = [val, '']
+
     $("""
       <div class="field string concept-position control-group">
         <div class="controls">

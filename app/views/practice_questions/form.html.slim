@@ -1,17 +1,14 @@
-= form_for @practice_question, url: url_for(controller: 'practice_questions', action: 'save'), layout: 'vertical' do |f|
-  = f.hidden :id
-  = f.string :name, label: "Story Title"
-  = f.text :description
+.js-acivity-form
+  = form_for @practice_question, url: url_for(controller: 'practice_questions', action: 'save'), layout: 'vertical' do |f|
+    = f.hidden :id
 
-  .concept-review-order.control-group data-view="ConceptReviewRoot"
-    label.control-label Practice rules order
-    = f.hidden :rule_position_text
+    .concept-review-order.control-group data-view="ConceptReviewRoot"
+      label.control-label Practice rules order
+      = f.hidden :rule_position_text
 
-    .display.uneditable-input style="cursor: pointer"
+      .display.uneditable-input style="cursor: pointer"
 
-    .edit.hide
-      .positions
-      .btn.add Add another
-      .btn.btn-primary.save Done
-
-  = f.actions save: 'Save'
+      .edit.hide
+        .positions
+        .btn.add Add another
+        .btn.btn-primary.save Done
