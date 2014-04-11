@@ -41,11 +41,13 @@ module ChapterFlow
   end
 
   def questions_completed
-    current_step.rules.map(&:rule).index(current_rule) * question_quantity_for_current_rule + @context.params[:question_index].to_i
+    rules = current_step.rules.map(&:rule)
+    rules = rules.select{|rule| rules.index(rule) < rules.index(current_rule)}
+    questions_total(rules) + @context.params[:question_index].to_i
   end
 
-  def questions_total
-    current_step.rules.inject(0) {|sum, rule| sum + chapter.question_quantity_for_rule(rule)}
+  def questions_total rules = false
+    (rules || current_step.rules).inject(0) do |sum, rule| sum + chapter.question_quantity_for_rule(rule)}
   end
 
   def question_quantity_for_current_rule
