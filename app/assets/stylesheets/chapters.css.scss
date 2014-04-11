@@ -60,6 +60,14 @@
   display: inline;
 }
 
+.rectangle {
+  width: 15px;
+  height: 10px;
+  background: #22aafc;
+  border-right: 2px solid #ebf8ff;
+  display: inline-block;
+}
+
 .chapter-progress-total .rectangle {
   background: #c2e5ff;
 }
