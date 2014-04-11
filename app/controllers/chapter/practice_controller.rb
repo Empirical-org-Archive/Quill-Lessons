@@ -71,7 +71,8 @@ private
   def update_progress
     return unless @rule.present?
     raise FlowError if @chapter_test.current_step.rules.empty?
-    @questions_completed = @chapter_test.current_step.rules.map(&:rule).index(@rule) * ChapterTest::MAX_QUESTIONS + params[:question_index].to_i
-    @questions_total     = @chapter_test.current_step.rules.count * ChapterTest::MAX_QUESTIONS
+
+    @questions_completed = @chapter_test.questions_completed
+    @questions_total     = @chapter_test.questions_total
   end
 end

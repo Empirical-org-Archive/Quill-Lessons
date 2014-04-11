@@ -1,6 +1,6 @@
 module ChapterView
   def story_instructions
-    (assessment.instructions || default_story_instructions) % {errors: assessment.questions.length, max: ChapterTest::MAX_QUESTIONS}
+    (assessment.instructions || default_story_instructions) % {errors: assessment.questions.length, max: 3}
   end
 
   def default_story_instructions

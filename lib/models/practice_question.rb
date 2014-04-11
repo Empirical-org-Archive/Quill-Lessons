@@ -27,4 +27,13 @@ class PracticeQuestion < Quill::ActivityModel
     end
     ids.map{ |id| Rule.find(id) }
   end
+
+  def question_quantity_for_rule rule
+    rule_position.each do |pair|
+      id, count = pair
+      return (count.presence.try(:to_i) || 3) if id.to_i == rule.id
+    end
+
+    raise "couldn't find rule id #{rule.id} for question set #{id}"
+  end
 end

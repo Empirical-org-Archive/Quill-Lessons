@@ -1,6 +1,4 @@
 module ChapterFlow
-  MAX_QUESTIONS = 3
-
   def next_page_url
     fix_id_param
 
@@ -40,6 +38,14 @@ module ChapterFlow
     # It should never generate a URL with a query string
     raise result.to_s if result.include?('?')
     result
+  end
+
+  def questions_completed
+    current_step.rules.map(&:rule).index(current_rule) * question_quantity_for_current_rule + @context.params[:question_index].to_i
+  end
+
+  def questions_total
+    current_step.rules.count * question_quantity_for_current_rule
   end
 
 protected
@@ -96,7 +102,11 @@ protected
   end
 
   def next_index
-    params[:question_index].to_i + 1 if params[:question_index].to_i < MAX_QUESTIONS
+    params[:question_index].to_i + 1 if params[:question_index].to_i < question_quantity_for_current_rule
+  end
+
+  def question_quantity_for_current_rule
+    chapter.question_quantity_for_rule(current_rule)
   end
 
   def next_rule_id
