@@ -47,7 +47,7 @@ module ChapterFlow
   end
 
   def questions_total rules = false
-    (rules || current_step.rules).inject(0) do |sum, rule| sum + chapter.question_quantity_for_rule(rule)}
+    (rules || current_step.rules).inject(0) {|sum, rule| sum + chapter.question_quantity_for_rule(rule)}
   end
 
   def question_quantity_for_current_rule
