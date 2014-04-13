@@ -12,7 +12,7 @@ article.edit-lesson-page.simple-rounded-box
 
     = f.text :instructions
     = f.text :hint
-    = f.choices :rule_id, Rule.all.map{|r| [r.title, r.id]}
+    = f.choices :rule_id, Rule.all.map{|r| [r.name, r.id]}
     = f.actions
 
 css:

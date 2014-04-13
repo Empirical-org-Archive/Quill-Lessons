@@ -1,6 +1,6 @@
 article.simple-rounded-box
   = form_for [:cms, @rule], html: { class: 'form-horizontal box-full-form' } do |f|
-    = f.string :title
+    = f.string :name
     = f.string :classification
 
     - if params[:example].present? || @rule.examples.any?
