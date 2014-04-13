@@ -41,14 +41,14 @@
           .icon
           .message
             h3 Try Again!
-            .hint= @question.hint || 'hint'
+            .hint= @question.hint.to_s
           a.button.btn.btn-primary.next Check Answer
 
         .second-try
           .icon
           .message
             h3 Incorrect.
-            .hint= @question.answers.first || 'answer'
+            .hint= @question.answers.first.to_s
           a.button.btn.btn-primary.next Continue
 
         .correct
