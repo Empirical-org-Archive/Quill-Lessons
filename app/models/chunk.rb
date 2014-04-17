@@ -7,6 +7,18 @@ class Chunk
     @chapter = chapter
     @chunk   = chapter.assessment.chunks[options[:id]]
 
+    if @chunk.nil?
+      message = <<-text
+Chunk is nil.
+chapter:    #{chapter.inspect}
+assessment: #{chapter.assessment.inspect}
+id:         #{options[:id]}
+text
+
+      puts message
+      raise message
+    end
+
     @word    = options[:word]
     @error   = options[:error]
     @answer  = options[:answer]
