@@ -2,6 +2,7 @@ class Chunk
   attr_reader :chapter, :chunk, :state, :input
   delegate :rule, to: :@chunk
   delegate :classification, to: :rule
+  class MissingChunkError < Exception ; end
 
   def initialize chapter, options
     @chapter = chapter
@@ -16,7 +17,7 @@ id:         #{options[:id]}
 text
 
       puts message
-      raise message
+      raise MissingChunkError, message
     end
 
     @word    = options[:word]
