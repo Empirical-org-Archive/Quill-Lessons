@@ -1,9 +1,11 @@
 class Story < Quill::ActivityModel
   attributes :body, :instructions
-  validates :name, presence: true
-  validates :description, presence: true
 
   def assessment
     @assessment ||= Assessment.new(self)
+  end
+
+  def question_quantity_for_rule rule
+    3
   end
 end
