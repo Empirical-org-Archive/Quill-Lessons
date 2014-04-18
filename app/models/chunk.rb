@@ -9,14 +9,6 @@ class Chunk
     @chunk   = chapter.assessment.chunks[options[:id]]
 
     if @chunk.nil?
-      message = <<-text
-Chunk is nil.
-chapter:    #{chapter.inspect}
-assessment: #{chapter.assessment.inspect}
-id:         #{options[:id]}
-text
-
-      puts message
       raise MissingChunkError, message
     end
 
