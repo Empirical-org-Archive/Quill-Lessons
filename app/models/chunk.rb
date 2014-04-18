@@ -9,7 +9,7 @@ class Chunk
     @chunk   = chapter.assessment.chunks[options[:id]]
 
     if @chunk.nil?
-      raise MissingChunkError, message
+      raise MissingChunkError
     end
 
     @word    = options[:word]
