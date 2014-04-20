@@ -2,6 +2,7 @@ class CMS::RulesController < ApplicationController
   before_filter :admin!
 
   def index
+    expire_fragment('category_list') if params[:refresh]
     @categories = Category.all
   end
 

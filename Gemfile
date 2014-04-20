@@ -36,6 +36,7 @@ gem 'pry-rails'#, group: %w(development test)
 gem 'puma', group: %w(development)
 gem 'faraday_middleware'
 gem 'quill-api-client'
+gem 'dalli'
 
 group :development do
   gem 'better_errors'

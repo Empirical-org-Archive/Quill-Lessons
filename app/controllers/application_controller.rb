@@ -27,6 +27,7 @@ protected
   # check if the role returned from the oauth provider is admin. This is only
   # for convenience, the API will enforce roles either way.
   def admin!
+    return true if Rails.env.development?
     return unless authenticate!
 
     unless session[:user_role] == :admin

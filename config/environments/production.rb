@@ -37,7 +37,7 @@ EmpiricalGrammar::Application.configure do
   config.assets.version = '1.0'
 
   # Specifies the header that your server uses for sending files.
-  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
+  # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
@@ -53,7 +53,7 @@ EmpiricalGrammar::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :dalli_store, ENV['MEMCACHEDCLOUD_SERVERS'].split(','), { username: ENV['MEMCACHEDCLOUD_USERNAME'], password: ENV['MEMCACHEDCLOUD_PASSWORD'] }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # temporarily disabling this until it gets all sorted out:
