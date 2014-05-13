@@ -1,6 +1,6 @@
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
 //= require jquery.color
 //= require bootstrap-transition
 //= require bootstrap-dropdown
@@ -12,4 +12,5 @@
 //= require backbone
 //= require backbone/pg_site
 //= require jsdiff
+//= require turbolinks
 //= require_tree .
