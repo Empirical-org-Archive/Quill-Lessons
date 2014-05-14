@@ -4,15 +4,11 @@ article.simple-rounded-box
 
   h3 break the cache
 
-  p You can break the cache by adding ?refresh=true to the url. As long as this is present on the url, it will always reload. So once you've added it be sure to go back to the page without it so it will continue to load from the new cache you generated.  the full url: http://quill-questions-module.herokuapp.com/cms/rules?refresh=true
+  p= "You can break the cache by adding ?refresh=true to the url. As long as this is present on the url, it will always reload. So once you've added it be sure to go back to the page without it so it will continue to load from the new cache you generated.  the full url: http://quill-questions-module.herokuapp.com/cms/rules?refresh=true"
 
   .category-container
-    - cache('category_list', skip_digest: true) do
-      h3
-        span
-          ' Last updated
-        abbr.updated-at(title=Time.now.iso8601)= Time.now
-      - (@categories << NilCategory).each do |category|
+    - @categories.each do |category|
+      - cache("category_list_#{category.id}", skip_digest: true) do
         .line.category-line
           .title.category-title= category.title
           .actions
@@ -43,7 +39,3 @@ article.simple-rounded-box
                 .destroy
                   = link_to image_tag('delete.png', title: 'Delete this question'), [:cms, lesson], method: :delete, data: { confirm: 'Are you sure?' }
                 .edit= link_to image_tag('edit.png', title: 'Edit this question'), edit_cms_rule_question_path(lesson)
-
-    script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.0/jquery.timeago.min.js" type="text/javascript"
-    javascript:
-      jQuery('h3 abbr.updated-at').timeago()

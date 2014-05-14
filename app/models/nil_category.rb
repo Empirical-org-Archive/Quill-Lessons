@@ -20,5 +20,9 @@ module NilCategory
     self
   end
 
+  def id
+    'nil'
+  end
+
   extend self
 end

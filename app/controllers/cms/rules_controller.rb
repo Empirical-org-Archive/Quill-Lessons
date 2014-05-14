@@ -2,8 +2,8 @@ class CMS::RulesController < ApplicationController
   before_filter :admin!
 
   def index
-    expire_fragment('category_list') if params[:refresh]
-    @categories = Category.all
+    @categories = Category.all << NilCategory
+    @categories.each{|c| expire_fragment("category_list_#{c.id}")} if params[:refresh]
   end
 
   def show
