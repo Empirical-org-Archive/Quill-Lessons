@@ -36,6 +36,8 @@ window.ruleQuestionPage = function ruleQuestionPage ($page) {
   }
 
   function verify (data) {
+    $('body').removeLoadingButton();
+
     if (data === null) return;
 
     if (data.first_grade === true || data.second_grade === null)
@@ -56,7 +58,6 @@ window.ruleQuestionPage = function ruleQuestionPage ($page) {
       .fail(function (err) {
         debugger;
       });
-      $("body").removeLoadingButton();
 
     e.preventDefault();
   }
