@@ -92,11 +92,15 @@ window.PG.Views.ChapterAssessment = Backbone.View.extend({
         }
       });
 
-    this.$('.show-results').hide();
 
     $.postJSON(this.$el.data().storyPath, JSON.stringify(this.chunks.toJSON()), 'html')
       .then(function (data) {
-        self.$('.grammar-test-results').html(data);
+        self.$('.show-results').hide();
+        $('body').removeLoadingButton();
+
+        self.$('.grammar-test-results').html(data).on('click', 'a.button', function () {
+          $(this).loadingButton();
+        });
       })
       .fail(function (err) {
         debugger;

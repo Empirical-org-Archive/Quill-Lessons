@@ -31,7 +31,7 @@
 }(jQuery));
 
 $(document).ready(function(){
-  $("a.button").on("click", function (){
+  $("a.button, button.button").on("click", function (){
     $(this).loadingButton();
   });
 });
