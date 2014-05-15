@@ -107,6 +107,6 @@ protected
   end
 
   def quill_iframe
-    response.headers['X-Frame-Options'] = "ALLOW-FROM #{ENV['QUILL_SITE_URL']}"
+    response.headers['X-Frame-Options'] = ""
   end
 end
