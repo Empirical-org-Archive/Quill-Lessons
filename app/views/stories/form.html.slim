@@ -1,9 +1,12 @@
-br
-br
-br
-.simple-rounded-box
-  = form_for @story, url: url_for(controller: 'stories', action: 'save', subdomain: 'questions-module'), layout: 'vertical' do |f|
+.js-acivity-form
+  = form_for @story, url: url_for(controller: 'stories', action: 'save'), layout: 'vertical' do |f|
     = f.hidden :id
 
+    = f.text :instructions
     = f.text :body
-    = f.actions save: 'Save'
+
+css:
+  textarea {
+    width: 640px;
+    height: 400px;
+  }
