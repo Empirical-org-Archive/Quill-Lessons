@@ -27,8 +27,8 @@ class Chapter::BaseController < ApplicationController
 
     if session[:activity_session_id].blank?
       @score.activity_uid = session[:uid]
-      @score.save
-      raise "Failed to set ID" if @score.id.blank?
+      result = @score.save
+      raise "Failed to set ID #{result.inspect} - #{@score.inspect}" if @score.id.blank?
       session[:activity_session_id] = @score.id
     end
 

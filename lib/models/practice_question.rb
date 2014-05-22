@@ -25,6 +25,7 @@ class PracticeQuestion < Quill::ActivityModel
     else
       rule_position
     end
+
     ids.map{ |id| Rule.find(id) }
   end
 
