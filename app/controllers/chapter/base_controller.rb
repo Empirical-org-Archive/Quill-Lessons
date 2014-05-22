@@ -44,7 +44,7 @@ class Chapter::BaseController < ApplicationController
 
         params = @score.filter_params(params) if @score.respond_to?(:filter_params)
         result = @score.send(:api).post 'activity_sessions', params
-        raise result.inspect if @score.id.blank?
+        raise "#{params} - #{result.inspect}" if @score.id.blank?
       end
       session[:activity_session_id] = @score.id
     end
