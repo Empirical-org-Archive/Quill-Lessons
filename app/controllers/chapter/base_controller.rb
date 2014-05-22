@@ -28,7 +28,24 @@ class Chapter::BaseController < ApplicationController
     if session[:activity_session_id].blank?
       @score.activity_uid = session[:uid]
       result = @score.save
-      raise "Failed to set ID #{result.inspect} - #{@score.inspect}" if @score.id.blank?
+      if @score.id.blank?
+        data = @score.instance_variable_get(:@data).except(*@score.class.special_attrs.dup)
+        serialized_data = {}
+
+        data.each do |key, value|
+          serialized_data[key] = value.to_yaml
+        end
+
+        params = { data: serialized_data }
+
+        @score.class.special_attrs.each do |attr|
+          params[attr] = @score.send(attr)
+        end
+
+        params = @score.filter_params(params) if @score.respond_to?(:filter_params)
+        result = @score.send(:api).post 'activity_sessions', params
+        raise result.inspect if @score.id.blank?
+      end
       session[:activity_session_id] = @score.id
     end
 
