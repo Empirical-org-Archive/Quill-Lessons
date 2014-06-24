@@ -19,7 +19,6 @@ class PracticeQuestion < Quill::ActivityModel
     rule_position.to_json
   end
 
-
   def practice_rules
     if rule_position.nil?
       raise id.inspect
