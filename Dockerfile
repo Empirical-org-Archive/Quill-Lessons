@@ -1,9 +1,10 @@
 # DOCKER-VERSION 0.9.0
 
-FROM quill_base
+FROM empirical/quill_base
 
 MAINTAINER Quinn Shanahan q.shanahan@gmail.com
 
 EXPOSE 3000
 ADD . /app
-RUN cd /app; bundle install
+WORKDIR /app
+RUN bundle install
