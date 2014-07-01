@@ -1,1 +1,1 @@
-ActiveRecord::Base.connection.execute(File.read('./db/oauth.sql'))
+ActiveRecord::Base.connection.execute(File.read('./db/seed.sql'))

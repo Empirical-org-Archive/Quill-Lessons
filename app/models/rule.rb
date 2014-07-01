@@ -1,4 +1,5 @@
 class Rule < ActiveRecord::Base
+  self.primary_key = 'id' # TODO remove this
   include Flags
   belongs_to :category
   belongs_to :workbook

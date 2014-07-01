@@ -270,12 +270,6 @@ CREATE SEQUENCE rules_misseds_id_seq
 ALTER SEQUENCE rules_misseds_id_seq OWNED BY rules_misseds.id;
 
 --
--- Name: index_rules_on_uid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_rules_on_uid ON rules USING btree (uid);
-
---
 -- PostgreSQL database dump complete
 --
 
