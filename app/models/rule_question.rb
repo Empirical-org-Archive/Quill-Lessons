@@ -1,4 +1,5 @@
 class RuleQuestion < ActiveRecord::Base
+  self.primary_key = 'id'
   belongs_to :rule
   serialize :body
 
