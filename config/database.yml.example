@@ -1,4 +1,4 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: emp_gr_development
+  database: quill_lessons_development

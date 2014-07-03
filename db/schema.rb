@@ -13,15 +13,13 @@
 
 ActiveRecord::Schema.define(version: 20140630225144) do
 
-  create_table "categories", id: false, force: true do |t|
-    t.integer  "id",         null: false
+  create_table "categories", force: true do |t|
     t.text     "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "grammar_rules", id: false, force: true do |t|
-    t.integer  "id",              null: false
+  create_table "grammar_rules", force: true do |t|
     t.string   "identifier"
     t.text     "description"
     t.datetime "created_at",      null: false
@@ -30,15 +28,13 @@ ActiveRecord::Schema.define(version: 20140630225144) do
     t.integer  "author_id"
   end
 
-  create_table "grammar_tests", id: false, force: true do |t|
-    t.integer  "id",         null: false
+  create_table "grammar_tests", force: true do |t|
     t.text     "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "rule_examples", id: false, force: true do |t|
-    t.integer  "id",                         null: false
+  create_table "rule_examples", force: true do |t|
     t.text     "title"
     t.boolean  "correct",    default: false, null: false
     t.text     "text"
@@ -47,8 +43,7 @@ ActiveRecord::Schema.define(version: 20140630225144) do
     t.datetime "updated_at"
   end
 
-  create_table "rule_question_inputs", id: false, force: true do |t|
-    t.integer  "id",                  null: false
+  create_table "rule_question_inputs", force: true do |t|
     t.string   "step"
     t.integer  "rule_question_id"
     t.integer  "score_id"
@@ -59,8 +54,7 @@ ActiveRecord::Schema.define(version: 20140630225144) do
     t.string   "activity_session_id"
   end
 
-  create_table "rule_questions", id: false, force: true do |t|
-    t.integer  "id",           null: false
+  create_table "rule_questions", force: true do |t|
     t.text     "body"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
@@ -70,8 +64,7 @@ ActiveRecord::Schema.define(version: 20140630225144) do
     t.text     "hint"
   end
 
-  create_table "rules", id: false, force: true do |t|
-    t.integer  "id",                          null: false
+  create_table "rules", force: true do |t|
     t.text     "name"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
@@ -83,8 +76,7 @@ ActiveRecord::Schema.define(version: 20140630225144) do
     t.string   "flags",          default: [], null: false, array: true
   end
 
-  create_table "rules_misseds", id: false, force: true do |t|
-    t.integer  "id",            null: false
+  create_table "rules_misseds", force: true do |t|
     t.integer  "rule_id"
     t.integer  "user_id"
     t.integer  "assessment_id"
