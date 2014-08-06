@@ -52,5 +52,8 @@ module EmpiricalGrammar
     config.hamlcoffee.escapeHtml = false
 
     config.assets.initialize_on_precompile = false
+
+    require Rails.root.join('lib/rack_pthreep_fix')
+    config.middleware.insert_before ActionDispatch::Session::CookieStore, RackPthreepFix
   end
 end
