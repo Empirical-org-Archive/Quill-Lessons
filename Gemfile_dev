@@ -1,3 +1,0 @@
-eval File.read(File.expand_path('../Gemfile', __FILE__))
-@dependencies.delete @dependencies.find { |d| d.name == 'quill-api-client' }
-gem 'quill-api-client', path: '../pkg/ruby-api-client'
