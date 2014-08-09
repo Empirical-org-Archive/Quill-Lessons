@@ -25,3 +25,4 @@ snapshot.dump
 .rbenv-vars-local
 .rbenv-vars-remote
 .tags
+*.swp
