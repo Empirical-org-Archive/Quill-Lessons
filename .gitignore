@@ -26,3 +26,4 @@ snapshot.dump
 .rbenv-vars-remote
 .tags
 *.swp
+db/*.dump
