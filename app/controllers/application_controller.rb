@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  prepend_before_action :log_session
+  before_action :log_session
   before_action :quill_iframe
   before_action :authenticate!, except: [:start_session]
   helper CMS::Helper
