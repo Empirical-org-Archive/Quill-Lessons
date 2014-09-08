@@ -34,7 +34,7 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 
 # API
-gem 'quill-api-client'
+gem 'empirical-client', path: '../client'
 gem 'dalli'
 
 # UI HELPERS
