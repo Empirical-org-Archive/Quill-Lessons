@@ -66,8 +66,8 @@ window.Quill = function Quill (host, options) {
   this.options = options;
 
   // assign host.
-  this.host = host;
-  if (!host) this.host = 'http://api.quill.org/';
+  this.host = host + "/api/v1";
+  if (!host) this.host = 'http:/quill.org/api/v1/';
 
   // if the iframe is present, we assume we are on quill.org
   if ($('iframe#activity-iframe').length > 0) {
@@ -262,7 +262,7 @@ jQuery.extend(Quill.prototype, {
       refreshevents: 'mousemove keydown click',
       interval: 1000,  // secs
       idle: 3000,  // secs
-      to: 'quill-api.org',
+      to: 'localhost:3000/api/v1/',
       profiles: {
         'START': 'start',
         'PAUSE': 'pause',
@@ -324,7 +324,7 @@ jQuery.extend(Quill.prototype, {
         });
 
         // DOM trigger for ping action
-        jQuery(document).trigger(type+'.activities');
+        jQuery(document).trigger(type + '.activities');
       },
 
       //
