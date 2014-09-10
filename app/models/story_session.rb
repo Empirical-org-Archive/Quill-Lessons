@@ -26,7 +26,7 @@ module RuleQuestionInputAccessors
   end
 end
 
-class StorySession < Quill::ActivitySession
+class StorySession < Empirical::Client::Endpoints::ActivitySession
   attributes :story_step_input, :missed_rules
   include RuleQuestionInputAccessors
 

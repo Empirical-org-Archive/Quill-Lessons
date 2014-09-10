@@ -1,17 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :log_session
   before_action :quill_iframe
   before_action :authenticate!, except: [:start_session]
   helper CMS::Helper
 
-  # rescue_from OAuth2::Error do
-  #   session.delete :access_token
-  #   authenticate!
-  # end
-  #
-  def log_session
-    Rails.logger.info("CURRENT SESSION IS.... #{session.inspect}")
+  rescue_from OAuth2::Error do
+    session.delete :access_token
+    authenticate!
   end
 
   def root

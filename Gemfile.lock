@@ -432,6 +432,7 @@ DEPENDENCIES
   compass-rails
   dalli
   database_cleaner
+  dotenv
   empirical-client!
   factory_girl
   factory_girl_rails
