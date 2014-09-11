@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140630225144) do
+ActiveRecord::Schema.define(version: 20140119010550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "categories", force: true do |t|
     t.text     "title"
@@ -68,15 +69,13 @@ ActiveRecord::Schema.define(version: 20140630225144) do
   end
 
   create_table "rules", force: true do |t|
-    t.text     "name"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.text     "title"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "category_id"
     t.integer  "workbook_id",    default: 1
     t.text     "description"
     t.string   "classification"
-    t.string   "uid"
-    t.string   "flags",          default: [], null: false, array: true
   end
 
   create_table "rules_misseds", force: true do |t|
