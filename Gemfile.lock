@@ -145,6 +145,8 @@ GEM
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
+    dotenv-rails (0.11.1)
+      dotenv (= 0.11.1)
     eco (1.0.0)
       coffee-script
       eco-source
@@ -432,7 +434,7 @@ DEPENDENCIES
   compass-rails
   dalli
   database_cleaner
-  dotenv
+  dotenv-rails
   empirical-client!
   factory_girl
   factory_girl_rails

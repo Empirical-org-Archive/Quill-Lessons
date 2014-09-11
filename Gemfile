@@ -6,6 +6,10 @@ ruby '2.1.2'
 gem 'rails', '~> 4.1.4'
 gem 'puma'
 
+# FOR ENV MGMT in test/dev. listed early to hijack 
+# settings for other gems
+gem 'dotenv-rails', groups: [:development, :test]
+
 # DB/MODEL
 gem 'pg'
 gem 'ancestry'
@@ -74,7 +78,6 @@ group :production, :staging do
 end
 
 group :development do
-  gem 'dotenv'
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
   gem 'foreman'

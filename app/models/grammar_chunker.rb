@@ -1,5 +1,6 @@
 module GrammarChunker
-  def chunk parsed
+
+  def chunk(parsed)
     parsed.inject(Chunks.new) do |memo, val|
       split_words(val[:before]).each do |word|
         memo << {word: word}
@@ -17,7 +18,7 @@ module GrammarChunker
     end
   end
 
-  def split_words text
+  def split_words(text)
     Array.wrap(text.to_s)
       .map { |s| s.split(/(<br>)/) }.flatten
       .map { |s| s.split(/\s+/) }.flatten

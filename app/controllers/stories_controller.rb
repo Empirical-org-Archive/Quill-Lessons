@@ -3,12 +3,11 @@ class StoriesController < ActivityController
   before_action :load_record
 
   def module
-    show_story
+    render :homepage
   end
 
   def homepage
-    load_record
-    show_story
+    render :homepage
   end
 
 
@@ -16,20 +15,6 @@ class StoriesController < ActivityController
 
   def load_record
     @story = Story.find(params[:uid])
-  end
-
-protected
-
-  def model
-    Story
-  end
-
-  def subject
-    :story
-  end
-
-  def show_story
-    @assessment = @story.assessment
-    render :homepage
+    @assessment = @story
   end
 end

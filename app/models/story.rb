@@ -1,8 +1,6 @@
 class Story < Empirical::Client::Endpoints::Activity
 
-  endpoint_name "activities"
-
-  attributes :body, :instructions
+  # attributes :body, :instructions
 
   attr_accessor :chunks, :parsed
 
@@ -34,11 +32,5 @@ class Story < Empirical::Client::Endpoints::Activity
     as_json.to_json
   end
 
-  private
-
-  def markdown text
-    # fake markdown
-    text.gsub("\n", "<br>").html_safe
-  end
 end
 
