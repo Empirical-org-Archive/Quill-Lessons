@@ -1,54 +1,69 @@
 class Chunk
-  attr_reader :chapter, :chunk, :state, :input
+  attr_reader :chapter, :chunk, :state
+  attr_accessor :word, :error, :answer, :grammar, :text, :input
+
   delegate :rule, to: :@chunk
   delegate :classification, to: :rule
+
   class MissingChunkError < Exception ; end
 
-  def initialize chapter, options
+  def initialize(chapter, options)
     @chapter = chapter
     @chunk   = chapter.assessment.chunks[options[:id]]
 
-    if @chunk.nil?
-      raise MissingChunkError
-    end
+    raise MissingChunkError if @chunk.nil?
 
-    @word    = options[:word]
-    @error   = options[:error]
-    @answer  = options[:answer]
-    @grammar = options[:grammar]
-    @text    = options[:text]
-    @input   = options[:input]
+    %w(word error answer grammar text input).each do |k|
+      instance_variable_set("@#{k}", options.fetch(k.to_sym, '').strip)
+    end
   end
 
   def grade!
-    return @result if defined?(@result)
+    @result ||= grade_calculator
+  end
 
-    @result ||= if input? && correct.strip == @input.strip
-      @state = if word? then nil else :found end
-      true
-    elsif !input? && word?
-      @state = nil
-      true
-    else
-      @state = if word? then :introduced else :missed end
-      false
-    end
+  def highlighted_word
+    state == :missed ? correct : input
   end
 
   def input?
-    return true if @input.present? && word.blank?
-    @input.present? && (@input.strip != word.strip)
-  end
-
-  def classification
-    if state == :introduced
-      nil
+    if @input.blank? || word.blank?
+      return false
     else
-      rule.classification
+      !matches?(word)
     end
   end
 
+  def classification
+    state == :introduced ? nil : rule.classification
+  end
+
 private
+  def grade_calculator
+
+    if matches?(correct)
+      # matched the answer
+
+      @state = word? ? nil : :found
+      true
+
+    elsif !input? && word?
+      # no input, but expected answer
+
+      @state = nil
+      true
+    else
+      # new word, or got answer wrong
+
+      @state = word? ? :introduced : :missed
+      false
+    end
+
+  end
+
+  def matches?(other)
+    input == other
+  end
 
   def word?
     !!word
@@ -59,6 +74,6 @@ private
   end
 
   def correct
-    (if chunk[:answer] then chunk[:answer] else chunk[:word] end).to_s
+    chunk[:answer].present? ? chunk[:answer] : chunk[:word]
   end
 end

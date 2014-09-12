@@ -1,18 +1,25 @@
 class StoryChecker < SimpleDelegator
-  attr_accessor :context
 
-  def check_input! input, saving = true
-    self.story_step_input = input
+  attr_accessor :submission_steps, :context
+
+  def initialize(activity, input)
+    @submission_steps = input.map {|c| Chunk.new(activity, c) }
+  end
+
+  def grade!
+    @submission_steps.each(&:grade!)
+  end
+
+  def check_input!(input, saving = true)
+    self.data.story_step_input = input.map { |x| Hashie::Mash.new(x) }
     self.state = 'started'
     raise 'missing story' if activity.blank?
     @chunks = input.map { |c| Chunk.new(activity, c) }.each(&:grade!)
-    save! if saving
+    # save! if saving
   end
 
   def chunks
-    return @chunks if defined? @chunks
-    check_input! story_step_input, false
-    @chunks
+    @submission_steps
   end
 
   def chapter_test
@@ -35,15 +42,6 @@ class StoryChecker < SimpleDelegator
     sections.find { |s| s.section == section }
   end
 
-  class Chunk < ::Chunk
-    def highlighted_word
-      if state == :missed
-        correct
-      else
-        input
-      end
-    end
-  end
 
   class Section
     attr_reader :checker, :section
@@ -54,7 +52,7 @@ class StoryChecker < SimpleDelegator
     end
 
     def results
-      checker.chunks.select { |c| c.state == section }
+      checker.submission_steps.select { |c| c.state == section }
     end
     alias :chunks :results
 

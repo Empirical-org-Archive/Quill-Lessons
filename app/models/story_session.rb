@@ -27,9 +27,31 @@ module RuleQuestionInputAccessors
 end
 
 class StorySession < Empirical::Client::Endpoints::ActivitySession
+
   attributes :story_step_input, :missed_rules
   include RuleQuestionInputAccessors
 
+
+  attr_accessor :activity, :submission, :story_checker
+
+  def activity
+    @activity ||= Story.find(activity_uid)
+  end
+
+  def start!
+    self.state = "started"
+  end
+
+  def check_submission(input)
+    self.data ||= Hashie::Mash.new # FIXME?
+    self.data.story_step_input = input.map { |x| Hashie::Mash.new(x) }
+
+    @story_checker = StoryChecker.new(activity, input)
+    @story_checker.grade!
+  end
+
+
+# old methods
   def unstarted?
     false
   end

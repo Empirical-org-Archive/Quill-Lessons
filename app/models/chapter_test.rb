@@ -1,4 +1,5 @@
 module ChapterFlow
+
   def next_page_url
     fix_id_param
 

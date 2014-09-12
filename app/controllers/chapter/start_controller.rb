@@ -7,6 +7,7 @@ class Chapter::StartController < Chapter::BaseController
   end
 
   def final
+    Rails.logger.warn("FINAL CALLED IN STARTCONTROLLER - NEEDS A FIXIN")
     @score.finalize!
     @checker = StoryChecker.new(@score)
     render layout: 'application'
