@@ -38,7 +38,7 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 
 # API
-gem 'empirical-client', path: '../client'
+gem 'empirical-client', github: 'empirical-org/empirical-client' # path: '../client'
 gem 'dalli'
 
 # UI HELPERS

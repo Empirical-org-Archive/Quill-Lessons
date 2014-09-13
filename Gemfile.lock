@@ -1,4 +1,16 @@
 GIT
+  remote: git://github.com/empirical-org/empirical-client.git
+  revision: 9ac5ac6c95e5042c1c32d3c83006796afa438525
+  specs:
+    empirical-client (0.3.0)
+      activesupport
+      faraday
+      faraday_middleware
+      hashie
+      oauth2
+      patron
+
+GIT
   remote: git://github.com/netzpirat/haml_coffee_assets.git
   revision: a3c2951eca005d4fcce4837b9a97a139fc022c66
   specs:
@@ -16,17 +28,6 @@ GIT
       sass (~> 3.2)
       sprockets (~> 2.12)
       sprockets-rails (>= 2.0, < 4.0)
-
-PATH
-  remote: ../client
-  specs:
-    empirical-client (0.3.0)
-      activesupport
-      faraday
-      faraday_middleware
-      hashie
-      oauth2
-      patron
 
 PATH
   remote: vendor/gems/honey-cms-0.4.7
