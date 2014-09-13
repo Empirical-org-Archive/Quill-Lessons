@@ -16,9 +16,6 @@ class Chapter::StoriesController < Chapter::BaseController
     @activity_session.start!
     @activity_session.check_submission(params[:_json])
 
-
-    debugger
-
     @activity_session.save
 
 

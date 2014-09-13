@@ -213,7 +213,7 @@ class ChapterTest
       when :story
         []
       when :review
-        score.missed_rule_records(@context.instance_variable_get(:@context))
+        score.missed_rule_records
       end
 
       res.map{ |r| Rule.new(r, self) }

@@ -73,18 +73,17 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
   end
 
   def inputs
-    raise 'requires id' if id.blank?
-    RuleQuestionInput.where(activity_session_id: id)
+    raise 'requires id' if activity_session.uid.blank?
+    RuleQuestionInput.where(activity_session_id: activity_session.uid)
   end
 
-  def missed_rule_records(context)
-    calculate_missed_rules(context) if missed_rules.blank? || missed_rules.empty?
+  def missed_rule_records
+    calculate_missed_rules if missed_rules.blank? || missed_rules.empty?
     missed_rules.uniq.map{ |id| Rule.find(id) }
   end
 
-  def calculate_missed_rules(context)
-    checker = StoryChecker.new(self)
-    checker.context = context
+  def calculate_missed_rules
+    checker = StoryChecker.new(activity, YAML.load(activity_session.data.data).story_step_input)
     self.missed_rules = checker.section(:missed).chunks.map { |c| c.rule.id }
   end
 
@@ -99,6 +98,6 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
       inputs.map(&:score).inject(:+) / inputs.count
     end
 
-    save!
+    save
   end
 end

@@ -31,7 +31,6 @@ class Chapter::BaseController < ApplicationController
 
     # thing_needing_refactor if session[:activity_session_id].blank?
 
-    # this is broken, not sure why yet
     @chapter_test = ChapterTest.new(self)
   end
 
