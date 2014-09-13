@@ -15,18 +15,15 @@ gem 'pg'
 gem 'ancestry'
 gem 'taps'
 
+# CACHING
+gem 'redis-rails'
+
 # USER AUTH, ETC
 gem 'bcrypt-ruby'
 # gem 'doorkeeper'
 # gem 'cancancan', '~> 1.9'
 
-# UPLOADS
-gem 'carrierwave'
-gem 'fog'
-gem 'aws-sdk'
-
 # OTHERS
-gem 'mailchimp-api', require: 'mailchimp'
 gem 'faraday_middleware'
 
 # PARSING
@@ -39,7 +36,6 @@ gem 'jquery-turbolinks'
 
 # API
 gem 'empirical-client', github: 'empirical-org/empirical-client' # path: '../client'
-gem 'dalli'
 
 # UI HELPERS
 gem 'sass-rails', github: 'rails/sass-rails'
@@ -56,7 +52,7 @@ gem 'haml_coffee_assets', github: 'netzpirat/haml_coffee_assets'
 
 # ASSET/UI
 gem 'kramdown'
-gem 'therubyracer'
+gem 'therubyracer', require: false
 gem 'uglifier'
 gem 'kaminari'
 
@@ -69,7 +65,6 @@ gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 gem 'honey-auth'#, path: '../honey-auth'
 
 # DEPLOYMENT
-gem 'capistrano'
 gem 'sentry-raven' # error tracking
 
 group :production, :staging do

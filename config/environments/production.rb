@@ -53,7 +53,17 @@ EmpiricalGrammar::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  config.cache_store = :dalli_store, ENV['MEMCACHEDCLOUD_SERVERS'].split(','), { username: ENV['MEMCACHEDCLOUD_USERNAME'], password: ENV['MEMCACHEDCLOUD_PASSWORD'] }
+
+  # cache caching
+  config.cache_store = :redis_store, ENV["REDISTOGO_URL"], { expires_in: 90.minutes }
+
+  # page caching
+  # config.action_dispatch.rack_cache = {
+  #   :metastore    => "#{ENV["REDISTOGO_URL"]}/metastore",
+  #   :entitystore  => "#{ENV["REDISTOGO_URL"]}/entitystore",
+  #   :allow_reload => false }
+  # config.static_cache_control = "public, max-age=2592000"
+
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # temporarily disabling this until it gets all sorted out:
