@@ -33,6 +33,7 @@
   <% end -%>
 
   <% @assessment.chunks.each_with_index do |chunk, i| %>
+ // class: <%= chunk.class %>
 
    <% clean_chunk = chunk.as_json.merge(id: i).to_json.gsub("\\u003C","<").gsub("\\u003E",">").html_safe %>
     chapterAssessment.chunks.add(<%= clean_chunk %>);

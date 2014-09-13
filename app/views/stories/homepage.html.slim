@@ -1,2 +1,2 @@
-.story-instructions= markdown @story.activity.data.instructions
+.story-instructions= as_markdown(YAML.load(@story.activity.data.instructions))
 = render partial: 'chapter_test', object: @story.activity

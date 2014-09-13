@@ -13,8 +13,14 @@ class Story < Empirical::Client::Endpoints::Activity
   end
   delegate :questions, to: :chunks
 
+  def body_parser
+    body = YAML.load(activity.data.body).gsub("\r\n", "<br>")
+
+  end
+
+
   def parsed
-    @parsed ||= GrammarParser.new.parse(activity.data.body)[:questions]
+    @parsed ||= GrammarParser.new.parse(YAML.load(activity.data.body))[:questions]
   end
 
   def question_quantity_for_rule rule
@@ -23,7 +29,7 @@ class Story < Empirical::Client::Endpoints::Activity
 
   def as_json
     {
-      body: activity.data.body,
+      body: YAML.load(activity.data.body),
       id: id
     }
   end

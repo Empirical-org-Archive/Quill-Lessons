@@ -17,22 +17,10 @@ class Chapter::StoriesController < Chapter::BaseController
     @activity_session.check_submission(params[:_json])
 
     @activity_session.save
-
+    session[:activity_session_id] = @activity_session.activity_session.uid
 
     # sugar, for ui
     @checker = @activity_session.story_checker
-
-    #
-    # @checker = StoryChecker.new(@score)
-    # @checker.context = self
-    # debugger
-    # @checker.check_input!(params.delete(:_json))
-    #
-    # @score.state = 'started'
-    # @score.payload
-    #
-    # debugger
-    # @score.save
 
     render layout: false
   end

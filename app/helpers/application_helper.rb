@@ -38,4 +38,8 @@ module ApplicationHelper
   def root_path
     root_url
   end
+
+  def as_markdown(text)
+    Kramdown::Document.new(text).to_html.html_safe
+  end
 end

@@ -238,6 +238,7 @@ GEM
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    kramdown (1.4.1)
     launchy (2.4.2)
       addressable (~> 2.3)
     letter_opener (1.2.0)
@@ -453,6 +454,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   kaminari
+  kramdown
   letter_opener
   mailchimp-api
   mixpanel-ruby

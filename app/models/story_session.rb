@@ -44,7 +44,7 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
 
   def check_submission(input)
     self.data ||= Hashie::Mash.new # FIXME?
-    self.data.story_step_input = input.map { |x| Hashie::Mash.new(x) }
+    self.story_step_input = input.map { |x| Hashie::Mash.new(x) }
 
     @story_checker = StoryChecker.new(activity, input)
     @story_checker.grade!
@@ -83,7 +83,14 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
   end
 
   def calculate_missed_rules
-    checker = StoryChecker.new(activity, YAML.load(activity_session.data.data).story_step_input)
+
+    if !self.activity_session.nil? && !self.activity_session.data.nil?
+      input = YAML.load(activity_session.data.story_step_input)
+    elsif self.data.present?
+      input = data.story_step_input
+    end
+
+    checker = StoryChecker.new(activity, input)
     self.missed_rules = checker.section(:missed).chunks.map { |c| c.rule.id }
   end
 

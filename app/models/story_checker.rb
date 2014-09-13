@@ -2,7 +2,7 @@ class StoryChecker < SimpleDelegator
 
   attr_accessor :submission_steps, :context
 
-  def initialize(activity, input)
+  def initialize(activity, input=[])
     @submission_steps = input.map {|c| Chunk.new(activity, c) }
   end
 
@@ -11,11 +11,7 @@ class StoryChecker < SimpleDelegator
   end
 
   def check_input!(input, saving = true)
-    self.data.story_step_input = input.map { |x| Hashie::Mash.new(x) }
-    self.state = 'started'
-    raise 'missing story' if activity.blank?
     @chunks = input.map { |c| Chunk.new(activity, c) }.each(&:grade!)
-    # save! if saving
   end
 
   def chunks

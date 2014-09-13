@@ -55,6 +55,7 @@ gem 'haml-rails'
 gem 'haml_coffee_assets', github: 'netzpirat/haml_coffee_assets'
 
 # ASSET/UI
+gem 'kramdown'
 gem 'therubyracer'
 gem 'uglifier'
 gem 'kaminari'
