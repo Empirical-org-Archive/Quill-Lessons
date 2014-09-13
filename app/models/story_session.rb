@@ -42,6 +42,10 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
     activity_session.present? ? activity_session.activity_uid : self['activity_uid']
   end
 
+  def uid
+    activity_session.present? ? activity_session.uid : self['uid']
+  end
+
   def start!
     self.state = "started"
   end
@@ -76,7 +80,11 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
   end
 
   def inputs
-    raise 'requires id' if activity_session.uid.blank?
+    if activity_session.uid.blank?
+      Rails.logger.warn("BLANKING")
+      Rails.logger.warn self.inspect
+      raise "some kind of hell"
+    end
     RuleQuestionInput.where(activity_session_id: activity_session.uid)
   end
 
