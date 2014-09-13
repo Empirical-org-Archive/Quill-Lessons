@@ -21,6 +21,6 @@ protected
   end
 
   def client
-    @client ||= Quill::Oauth.new
+    @client ||= Empirical::Client::Oauth.new
   end
 end

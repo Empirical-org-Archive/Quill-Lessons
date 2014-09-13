@@ -38,12 +38,15 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
     @activity ||= Story.find(activity_uid)
   end
 
+  def activity_uid
+    activity_session.present? ? activity_session.activity_uid : self['activity_uid']
+  end
+
   def start!
     self.state = "started"
   end
 
   def check_submission(input)
-    self.data ||= Hashie::Mash.new # FIXME?
     self.story_step_input = input.map { |x| Hashie::Mash.new(x) }
 
     @story_checker = StoryChecker.new(activity, input)

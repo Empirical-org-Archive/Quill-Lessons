@@ -14,13 +14,13 @@ class Story < Empirical::Client::Endpoints::Activity
   delegate :questions, to: :chunks
 
   def body_parser
-    body = YAML.load(activity.data.body).gsub("\r\n", "<br>")
+    body = YAML.load(activity.data.body).gsub("\n", "<br>").html_safe
 
   end
 
 
   def parsed
-    @parsed ||= GrammarParser.new.parse(YAML.load(activity.data.body))[:questions]
+    @parsed ||= GrammarParser.new.parse(body_parser)[:questions]
   end
 
   def question_quantity_for_rule rule
