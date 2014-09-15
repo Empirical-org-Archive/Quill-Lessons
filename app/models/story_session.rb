@@ -79,11 +79,14 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
   end
 
   def inputs
-    if activity_session.try(:uid).blank?
+    if self.anonymous == true
+      []
+    elsif !activity_session.try(:uid).blank?
+      RuleQuestionInput.where(activity_session_id: activity_session.uid)
+    else
       Raven.extra_context(story_session: self)
       raise "some kind of hell"
     end
-    RuleQuestionInput.where(activity_session_id: activity_session.uid)
   end
 
   def missed_rule_records
