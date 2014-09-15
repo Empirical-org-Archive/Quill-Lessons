@@ -80,7 +80,7 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
 
   def inputs
     if activity_session.try(:uid).blank?
-      Raven.extra_context :story_session, self
+      Raven.extra_context(story_session: self)
       raise "some kind of hell"
     end
     RuleQuestionInput.where(activity_session_id: activity_session.uid)
@@ -92,7 +92,7 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
   end
 
   def calculate_missed_rules
-    Raven.extra_context :story_session, self
+    Raven.extra_context(story_session: self)
 
     if !self.activity_session.nil? && !self.activity_session.data.nil?
       input = YAML.load(activity_session.data.story_step_input)
