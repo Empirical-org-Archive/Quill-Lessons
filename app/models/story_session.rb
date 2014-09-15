@@ -7,6 +7,7 @@ module RuleQuestionInputAccessors
     end
 
     define_method "#{step}_handle_input" do |hash, input_step|
+
       raise 'cannot be greater than 1' if hash.length > 1
       question, input = hash.first
       inputs.find_or_create_by(step: step, rule_question_id: question).handle_input(input, cast_input_step(input_step))
@@ -28,9 +29,7 @@ end
 
 class StorySession < Empirical::Client::Endpoints::ActivitySession
 
-  attributes :story_step_input, :missed_rules
   include RuleQuestionInputAccessors
-
 
   attr_accessor :activity, :submission, :story_checker
 
@@ -80,7 +79,7 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
   end
 
   def inputs
-    if activity_session.uid.blank?
+    if activity_session.try(:uid).blank?
       Rails.logger.warn("BLANKING")
       Rails.logger.warn self.inspect
       raise "some kind of hell"
@@ -102,6 +101,8 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
     end
 
     checker = StoryChecker.new(activity, input)
+    checker.grade!
+
     self.missed_rules = checker.section(:missed).chunks.map { |c| c.rule.id }
   end
 
@@ -110,11 +111,7 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
     self.completed_at ||= Time.now
     self.state = 'finished'
 
-    self.percentage = if  inputs.count == 0
-      1.0
-    else
-      inputs.map(&:score).inject(:+) / inputs.count
-    end
+    self.percentage = (inputs.size == 0) ? 1.0 : inputs.map(&:score).inject(:+) / inputs.count
 
     save
   end

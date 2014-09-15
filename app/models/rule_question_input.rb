@@ -1,4 +1,19 @@
-module FinalChapterView
+class RuleQuestionInput < ActiveRecord::Base
+  belongs_to :rule_question
+  has_one :rule, through: :rule_question
+
+  def handle_input input, input_step = nil
+    if first_input.nil? || input_step == :first
+      self.first_input = input
+    elsif second_input.nil? || input_step == :second
+      self.second_input = input
+    else
+      raise "Only supports inputting twice."
+    end
+
+    save!
+  end
+
   def correct
     rule_question.answers.first
   end
@@ -42,23 +57,5 @@ module FinalChapterView
     return 1.0 if first_grade
     return 0.5 if second_grade
     0.0
-  end
-end
-
-class RuleQuestionInput < ActiveRecord::Base
-  include FinalChapterView
-  belongs_to :rule_question
-  has_one :rule, through: :rule_question
-
-  def handle_input input, input_step = nil
-    if first_input.nil? || input_step == :first
-      self.first_input = input
-    elsif second_input.nil? || input_step == :second
-      self.second_input = input
-    else
-      raise "Only supports inputting twice."
-    end
-
-    save!
   end
 end

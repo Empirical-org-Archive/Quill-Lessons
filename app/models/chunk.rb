@@ -1,6 +1,6 @@
 class Chunk
-  attr_reader :chapter, :chunk, :state
-  attr_accessor :word, :error, :answer, :grammar, :text, :input
+  attr_reader :chapter, :chunk
+  attr_accessor :state, :word, :error, :answer, :grammar, :text, :input
 
   delegate :rule, to: :@chunk
   delegate :classification, to: :rule
@@ -27,11 +27,7 @@ class Chunk
   end
 
   def input?
-    if @input.blank? || word.blank?
-      return false
-    else
-      !matches?(word)
-    end
+    (@input.blank? || word.blank?) ? false : !matches?(word)
   end
 
   def classification
@@ -50,7 +46,7 @@ private
     elsif !input? && word?
       # no input, but expected answer
 
-      @state = nil
+      @state = nil #:missed
       true
     else
       # new word, or got answer wrong

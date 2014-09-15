@@ -1,4 +1,6 @@
 class RuleQuestion < ActiveRecord::Base
+
+  has_many :rule_question_inputs
   belongs_to :rule
   serialize :body
 

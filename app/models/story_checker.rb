@@ -3,6 +3,7 @@ class StoryChecker < SimpleDelegator
   attr_accessor :submission_steps, :context
 
   def initialize(activity, input=[])
+    input = [] if input.nil?
     @submission_steps = input.map {|c| Chunk.new(activity, c) }
   end
 

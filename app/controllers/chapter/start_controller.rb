@@ -8,7 +8,7 @@ class Chapter::StartController < Chapter::BaseController
 
   def final
     @score.finalize!
-    @checker = StoryChecker.new(@score, [])
+    @checker = StoryChecker.new(@score, params[:_json])
     render layout: 'application'
   end
 
