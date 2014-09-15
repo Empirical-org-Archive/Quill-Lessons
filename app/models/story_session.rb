@@ -79,8 +79,10 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
   end
 
   def inputs
+
     if self.anonymous == true
-      []
+      # compat; needs proper fixing
+      RuleQuestionInput.where(activity_session_id: nil)
     elsif !activity_session.try(:uid).blank?
       RuleQuestionInput.where(activity_session_id: activity_session.uid)
     else
