@@ -2,8 +2,8 @@ class CMS::RulesController < ApplicationController
   before_filter :admin!
 
   def index
-    @categories = Category.all << NilCategory
-    @categories.each{|c| expire_fragment("category_list_#{c.id}")} if params[:refresh]
+    @categories = Category.includes(:rules).page(params[:page]).per(2)
+    @categories.each{|c| expire_fragment("category_list_#{c.id}")} if params.has_key?(:refresh)
   end
 
   def show

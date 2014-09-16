@@ -2,40 +2,36 @@ article.simple-rounded-box
   p#notice= notice
   = link_to image_tag('newcategory.png', title: 'New Category'), new_cms_category_path
 
-  h3 break the cache
-
-  p= "You can break the cache by adding ?refresh=true to the url. As long as this is present on the url, it will always reload. So once you've added it be sure to go back to the page without it so it will continue to load from the new cache you generated.  the full url: http://quill-questions-module.herokuapp.com/cms/rules?refresh=true"
-
   .category-container
     - @categories.each do |category|
-      - cache("category_list_#{category.id}", skip_digest: true) do
-        .line.category-line
-          .title.category-title= category.title
+      .line.category-line
+        .title.category-title= category.title
+        .actions
+          .add
+            = link_to image_tag('newrule.png', title: 'New rule for ' + category.title), new_cms_rule_path(category: category)
+          .destroy
+            = link_to image_tag('delete.png', title: 'Delete ' + category.title), [:cms, category], method: :delete, data: { confirm: 'Are you sure?' }
+          .edit
+            = link_to image_tag('edit.png', title: 'Edit ' + category.title), edit_cms_category_path(category)
+
+      - category.rules.each do |rule|
+        .line.rule-line
+          .title.rule-question-title
+            = "#{rule.name} \{\|#{rule.id}\}"
+
           .actions
-            .add
-              = link_to image_tag('newrule.png', title: 'New rule for ' + category.title), new_cms_rule_path(category: category)
+            .add= link_to image_tag('newlesson.png', title: 'New question for this rule'), new_cms_rule_question_path(rule: rule)
             .destroy
-              = link_to image_tag('delete.png', title: 'Delete ' + category.title), [:cms, category], method: :delete, data: { confirm: 'Are you sure?' }
+              = link_to image_tag('delete.png', title: 'Delete this rule'), [:cms, rule], method: :delete, data: { confirm: 'Are you sure?' }
             .edit
-              = link_to image_tag('edit.png', title: 'Edit ' + category.title), edit_cms_category_path(category)
+              = link_to image_tag('edit.png', title: 'Edit this rule'), edit_cms_rule_path(rule)
 
-        - category.rules.each do |rule|
-          .line.rule-line
-            .title.rule-question-title
-              = "#{rule.name} \{\|#{rule.id}\}"
-
+        - rule.questions.each do |lesson|
+          .line.rule-question-line
+            .title.lesson= lesson.body
             .actions
-              .add= link_to image_tag('newlesson.png', title: 'New question for this rule'), new_cms_rule_question_path(rule: rule)
+              .add &nbsp;
               .destroy
-                = link_to image_tag('delete.png', title: 'Delete this rule'), [:cms, rule], method: :delete, data: { confirm: 'Are you sure?' }
-              .edit
-                = link_to image_tag('edit.png', title: 'Edit this rule'), edit_cms_rule_path(rule)
-
-          - rule.questions.each do |lesson|
-            .line.rule-question-line
-              .title.lesson= lesson.body
-              .actions
-                .add &nbsp;
-                .destroy
-                  = link_to image_tag('delete.png', title: 'Delete this question'), [:cms, lesson], method: :delete, data: { confirm: 'Are you sure?' }
-                .edit= link_to image_tag('edit.png', title: 'Edit this question'), edit_cms_rule_question_path(lesson)
+                = link_to image_tag('delete.png', title: 'Delete this question'), [:cms, lesson], method: :delete, data: { confirm: 'Are you sure?' }
+              .edit= link_to image_tag('edit.png', title: 'Edit this question'), edit_cms_rule_question_path(lesson)
+  = paginate @categories

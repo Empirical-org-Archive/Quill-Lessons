@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     redirect_to params[:return]
   end
 
-protected
+  private
 
   # check if the role returned from the oauth provider is admin. This is only
   # for convenience, the API will enforce roles either way.
@@ -46,6 +46,9 @@ protected
     return true if session[:anonymous] == true
 
     if missing_activity_session?
+      Raven.extra_context(session: session)
+      Raven.extra_context(score: @score)
+
       raise "We're not anonymous but there is no session id. Cannot continue."
     end
 
