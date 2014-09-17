@@ -46,7 +46,8 @@ class ApplicationController < ActionController::Base
     return true if session[:anonymous] == true
 
     if missing_activity_session?
-      Raven.extra_context(session: session)
+      Raven.extra_context(params: params)
+      Raven.extra_context(session: session.inspect)
       Raven.extra_context(score: @score)
 
       raise "We're not anonymous but there is no session id. Cannot continue."

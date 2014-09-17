@@ -24,7 +24,7 @@ class PracticeQuestion < Empirical::Client::Endpoints::Activity
   end
 
   def practice_rules
-    raise Exception if rule_position.nil?
+    return [] if rule_position.nil?
 
     ids = if rule_position.first.is_a?(Array)
       rule_position.map(&:first)
