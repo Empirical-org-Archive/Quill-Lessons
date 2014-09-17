@@ -27,3 +27,4 @@ snapshot.dump
 .tags
 *.swp
 db/*.dump
+*.dump

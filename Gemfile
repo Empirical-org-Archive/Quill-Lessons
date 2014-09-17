@@ -29,6 +29,7 @@ gem 'faraday_middleware'
 # PARSING
 gem 'parslet'
 gem 'redcarpet'
+gem 'kramdown'
 
 # JS/APP/UI
 gem 'turbolinks'
@@ -47,13 +48,12 @@ gem 'jquery-rails'
 gem 'backbone-on-rails'
 
 gem 'slim-rails'
-gem 'haml-rails'
+# gem 'haml-rails'
 gem 'haml_coffee_assets', github: 'netzpirat/haml_coffee_assets'
 
 # ASSET/UI
-gem 'kramdown'
 gem 'therubyracer', require: false
-gem 'uglifier'
+gem 'uglifier',     require: false
 gem 'kaminari'
 
 # MIDDLEWARE
