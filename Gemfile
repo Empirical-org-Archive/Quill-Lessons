@@ -65,6 +65,7 @@ gem 'honey-cms', '0.4.7', path: 'vendor/gems/honey-cms-0.4.7'
 gem 'honey-auth'#, path: '../honey-auth'
 
 # DEPLOYMENT
+gem 'slack-notifier' # event prompting
 gem 'sentry-raven' # error tracking
 
 group :production, :staging do

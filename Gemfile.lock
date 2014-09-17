@@ -332,6 +332,7 @@ GEM
     sequel (3.20.0)
     sinatra (1.0)
       rack (>= 1.0)
+    slack-notifier (0.6.0)
     slim (2.0.3)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
@@ -432,6 +433,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails!
   sentry-raven
+  slack-notifier
   slim-rails
   taps
   terminal-notifier-guard

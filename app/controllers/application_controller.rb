@@ -46,6 +46,9 @@ class ApplicationController < ActionController::Base
     return true if session[:anonymous] == true
 
     if missing_activity_session?
+
+      $slack.ping "Missing activity session during authenticate!", attachments: [params.to_h]
+
       Raven.extra_context(params: params)
       Raven.extra_context(session: session.inspect)
       Raven.extra_context(score: @score)

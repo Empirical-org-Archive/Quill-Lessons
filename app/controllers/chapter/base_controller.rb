@@ -19,18 +19,20 @@ class Chapter::BaseController < ApplicationController
   end
 
   def set_activity_session
-    if session[:activity_session_id].blank? && session[:anonymous] == true
-      @activity_session = StorySession.new(anonymous: true, activity_uid: session[:uid], access_token: session[:access_token])
-      session[:activity_session_id] = @activity_session.id
-    else
+    if session[:activity_session_id].present?
       @activity_session = StorySession.find(session[:activity_session_id])
+    elsif session[:anonymous] == true
+      @activity_session = StorySession.new(anonymous: true, activity_uid: session[:uid], access_token: session[:access_token])
+    else
+      Rails.logger.warn("WEIRD SESSION
+      @activity_session = StorySession.new(anonymous: false, activity_uid: session[:uid], access_token: session[:access_token])
     end
+
+    # force reset the session id..
+    session[:activity_session_id] = @activity_session.id
 
     # for compat...
     @score = @activity_session
-
-    # thing_needing_refactor if session[:activity_session_id].blank?
-
     @chapter_test = ChapterTest.new(self)
   end
 
