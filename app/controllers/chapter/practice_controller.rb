@@ -1,11 +1,11 @@
 class Chapter::PracticeController < Chapter::BaseController
-  
+
   before_action :find_rule,          except: ['cheat', 'verify', 'verify_status']
   before_action :update_progress,    except: ['cheat', 'verify', 'verify_status', 'index']
 
   skip_before_action :find_assignment, only: ['cheat']
   prepend_before_action :clean_step_param
-  
+
   rescue_from(FlowError) { display_flow_error_message }
 
   def show
@@ -59,6 +59,8 @@ protected
 private
 
   def display_flow_error_message
+    attach = {params: params, session: session, cookies: cookies, test: @chapter_test.diagnostics}
+    $slack.ping "WEIRD SESSION..", attachments: [attach]
     render template: 'chapter/base/flow_error_message'
   end
 
