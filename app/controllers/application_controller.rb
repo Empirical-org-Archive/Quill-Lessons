@@ -124,14 +124,24 @@ class ApplicationController < ActionController::Base
       color: "#D00000",
       fields: [
           {
-            params: params,
-            session: session,
-            cookies: cookies
-         }]
-    }
+            title: "Params Hash",
+            value: params.awesome_inspect({plain: true}),
+            short: false
+          },
+          {
+            title: "Session Hash",
+            value: session.to_hash.awesome_inspect({plain: true}),
+            short: false
+          },
+          {
+            title: "Cookie Hash",
+            value: cookies.to_h.awesome_inspect({plain: true}),
+            short: false
+         }
+      ]}
+    data[:fields] << (extras) unless extras.empty?
 
-    data[:fields] << extras unless extras.empty?
-    $slack.ping(msg, attachments: [data])
+    $slack.ping(msg, icon_emoji: ':rotating_light:', attachments: [data])
 
   end
 

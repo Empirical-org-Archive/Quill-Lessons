@@ -24,7 +24,7 @@ class Chapter::BaseController < ApplicationController
     elsif session[:anonymous] == true
       @activity_session = StorySession.new(anonymous: true, activity_uid: session[:uid], access_token: session[:access_token])
     else
-      $slack.ping "WEIRD SESSION..", attachments: [session, params]
+      slack_debug("Strange Session?")
       @activity_session = StorySession.new(anonymous: false, activity_uid: session[:uid], access_token: session[:access_token])
     end
 

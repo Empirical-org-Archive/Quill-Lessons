@@ -59,7 +59,7 @@ protected
 private
 
   def display_flow_error_message
-    slack_debug("FlowError Rescued.", {chapter_diags: @chapter_test.diagnostics})
+    slack_debug("FlowError Rescued.", {title: "Chapter Diagnostics", value: @chapter_test.diagnostics.awesome_inspect({plain: true}), short: false})
     render template: 'chapter/base/flow_error_message'
   end
 
