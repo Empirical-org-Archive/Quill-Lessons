@@ -116,4 +116,24 @@ class ApplicationController < ActionController::Base
   def quill_iframe
     response.headers['X-Frame-Options'] = ""
   end
+
+  def slack_debug(msg, extras={})
+    data = {
+      fallback: "Error details from a request... view in the app/web",
+      pretext: "Error Caught - #{msg} - debug data follows:",
+      color: "#D00000",
+      fields: [
+          {
+            params: params,
+            session: session,
+            cookies: cookies
+         }]
+    }
+
+    data[:fields] << extras unless extras.empty?
+    $slack.ping(msg, attachments: [data])
+
+  end
+
+
 end

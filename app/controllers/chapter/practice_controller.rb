@@ -59,8 +59,7 @@ protected
 private
 
   def display_flow_error_message
-    attach = {params: params, session: session, cookies: cookies, test: @chapter_test.diagnostics}
-    $slack.ping "WEIRD SESSION..", attachments: [attach]
+    slack_debug("FlowError Rescued.", {chapter_diags: @chapter_test.diagnostics})
     render template: 'chapter/base/flow_error_message'
   end
 
