@@ -18,6 +18,10 @@ class Story < Empirical::Client::Endpoints::Activity
 
   end
 
+  def model_name
+    ActiveModel::Name.new(Story)
+  end
+
 
   def parsed
     @parsed ||= GrammarParser.new.parse(body_parser)[:questions]
