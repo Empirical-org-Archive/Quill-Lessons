@@ -30,7 +30,7 @@ class Chapter::BaseController < ApplicationController
     end
 
     # force reset the session id..
-    session[:activity_session_id] = @activity_session.id
+    session[:activity_session_id] = @activity_session.uid
 
     # for compat...
     @score = @activity_session
