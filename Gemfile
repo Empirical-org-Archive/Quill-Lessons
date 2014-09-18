@@ -81,12 +81,12 @@ group :development do
   gem "letter_opener"
 end
 
+gem "awesome_print"
 group :test, :development do
   gem "quiet_assets"
   gem "pry-rails"
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
-  gem "awesome_print"
   gem "rspec-rails"
   gem 'fuubar', '~> 2.0.0.rc1'
   gem "timecop"
