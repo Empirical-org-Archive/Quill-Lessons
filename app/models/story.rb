@@ -15,7 +15,6 @@ class Story < Empirical::Client::Endpoints::Activity
 
   def body_parser
     body = YAML.load(activity.data.body).gsub("\n", "<br>").html_safe
-
   end
 
   # for form_for etc

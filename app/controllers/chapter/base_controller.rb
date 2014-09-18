@@ -24,13 +24,15 @@ class Chapter::BaseController < ApplicationController
     elsif session[:anonymous] == true
       @activity_session = StorySession.new(anonymous: true, activity_uid: session[:uid], access_token: session[:access_token])
       @activity_session.save
-    else
+    elsif session[:uid].present?
       @activity_session = StorySession.new(anonymous: false, activity_uid: session[:uid], access_token: session[:access_token])
       @activity_session.save
     end
 
-    # force reset the session id..
-    session[:activity_session_id] = @activity_session.uid
+    unless @activity_session.nil?
+      # force reset the session id..
+      session[:activity_session_id] = @activity_session.uid
+    end
 
     # for compat...
     @score = @activity_session
