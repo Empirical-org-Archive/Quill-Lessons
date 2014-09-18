@@ -23,9 +23,10 @@ class Chapter::BaseController < ApplicationController
       @activity_session = StorySession.find(session[:activity_session_id])
     elsif session[:anonymous] == true
       @activity_session = StorySession.new(anonymous: true, activity_uid: session[:uid], access_token: session[:access_token])
+      @activity_session.save
     else
-      slack_debug("Strange Session?")
       @activity_session = StorySession.new(anonymous: false, activity_uid: session[:uid], access_token: session[:access_token])
+      @activity_session.save
     end
 
     # force reset the session id..
