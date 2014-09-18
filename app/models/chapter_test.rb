@@ -3,6 +3,11 @@ module ChapterFlow
   def next_page_url
     fix_id_param
 
+    if session[:activity_session_id].blank?
+      slack_debug("In next_page_url, and wondering about my session", {title: 'activity sesh', value: score.to_h.awesome_inspect(plain: true), short: false })
+      session[:activity_session_id] = score.uid
+    end
+
     # if the score is unstarted proceed to practice step.
     result = if score.unstarted?
       score.practice!
@@ -177,7 +182,8 @@ class ChapterTest
       rule_count: current_step.rules.length,
       rule_question_counts: current_step.rules.map { |r| r.rule.questions.count },
       step: current_step_symbol,
-      state: score.state
+      state: score.state,
+      activity_session: score
     }
   end
 
