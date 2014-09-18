@@ -47,10 +47,10 @@ class ApplicationController < ActionController::Base
 
     if missing_activity_session?
 
-      slack_debug("Missing activity session during authenticate!")
+      slack_debug("Missing activity session during authenticate!", {title: "Activity Session", value: @score.awesome_inspect(plain: true), short: false})
       Raven.extra_context(params: params)
       Raven.extra_context(session: session.inspect)
-      Raven.extra_context(score: @score)
+      Raven.extra_context(activity_session: @score)
 
       raise "We're not anonymous but there is no session id. Cannot continue."
     end

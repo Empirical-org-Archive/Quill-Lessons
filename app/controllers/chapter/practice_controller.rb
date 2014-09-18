@@ -16,7 +16,7 @@ class Chapter::PracticeController < Chapter::BaseController
       return
     end
 
-    @score.practice! if @score.unstarted?
+    @activity_session.practice! if @activity_session.unstarted?
   end
 
   def index
@@ -25,17 +25,17 @@ class Chapter::PracticeController < Chapter::BaseController
 
   def verify
     update_score
-    input = @score.inputs.where(step: params[:step], rule_question_id: params[:lesson_input].first.first).first
+    input = @activity_session.inputs.where(step: params[:step], rule_question_id: params[:lesson_input].first.first).first
     render json: input.as_json(methods: [:first_grade, :second_grade])
   end
 
   def verify_status
-    input = @score.inputs.where(step: params[:step], rule_question_id: params[:lesson_input].first.first).first
+    input = @activity_session.inputs.where(step: params[:step], rule_question_id: params[:lesson_input].first.first).first
     render json: input.as_json(methods: [:first_grade, :second_grade])
   end
 
   def cheat
-    @score = StorySession.new(id: params[:score_id])
+    @activity_session = StorySession.new(id: params[:score_id])
     render json: { answer: RuleQuestion.find(params[:lesson_input].first.first).answers.first }
   end
 
@@ -44,7 +44,7 @@ protected
   def find_rule
     return true if (params[:id] || params[:"#{params[:step]}_id"]).blank?
     @rule   ||= Rule.joins(:questions).find(params[:id] || params[:"#{params[:step]}_id"])
-    @question = @rule.questions.unanswered(@score, params[:step]).sample
+    @question = @rule.questions.unanswered(@activity_session, params[:step]).sample
     # too unpredictable.. please go where you need to will not infer
     return redirect_to @chapter_test.send :next_rule_url if @question.blank?
     raise FlowError, "Attempted to retrieve a question, but there are no more. Total number of questions available is #{@rule.questions.count}" if @question.blank?
@@ -64,8 +64,8 @@ private
   end
 
   def update_score
-    @score.send lesson_input_key, params[:lesson_input], params[:input_step]
-    @score.save
+    @activity_session.send lesson_input_key, params[:lesson_input], params[:input_step]
+    @activity_session.save
   end
 
   def lesson_input_key
