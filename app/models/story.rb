@@ -18,7 +18,8 @@ class Story < Empirical::Client::Endpoints::Activity
 
   end
 
-  def model_name
+  # for form_for etc
+  def self.model_name
     ActiveModel::Name.new(Story)
   end
 
