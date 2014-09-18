@@ -1,9 +1,40 @@
 module ChapterFlow
 
+
+  def slack_debug(msg, extras={})
+    data = {
+      fallback: "Error details from a request... view in the app/web",
+      pretext: "Error Caught - #{msg} - debug data follows:",
+      color: "#D00000",
+      fields: [
+          {
+            title: "Params Hash",
+            value: @context.params.except("_json").awesome_inspect({plain: true}),
+            short: false
+          },
+          {
+            title: "Session Hash",
+            value: @context.session.to_hash.awesome_inspect({plain: true}),
+            short: false
+          },
+          {
+            title: "Cookie Hash",
+            value: @context.send(:cookies).to_h.awesome_inspect({plain: true}),
+            short: false
+         }
+      ]}
+    data[:fields] << (extras) unless extras.empty?
+
+    $slack.ping(msg, icon_emoji: ':rotating_light:', attachments: [data])
+
+  end
+
   def next_page_url
     fix_id_param
 
+
     if @context.session[:activity_session_id].blank?
+
       slack_debug("In next_page_url, and wondering about my session", {title: 'activity sesh', value: score.to_h.awesome_inspect(plain: true), short: false })
       @context.session[:activity_session_id] = score.uid
     end
