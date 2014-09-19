@@ -124,7 +124,7 @@ class ApplicationController < ActionController::Base
       fields: [
           {
             title: "Request ID",
-            value: request.headers['X-Request-ID'] rescue '',
+            value: (request.headers['X-Request-ID'] rescue ''),
             short: false
           },
           {
