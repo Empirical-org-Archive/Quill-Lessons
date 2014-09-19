@@ -108,6 +108,8 @@ class ApplicationController < ActionController::Base
       session[:activity_session_id] = params[:student]
     elsif params[:anonymous]
       session[:anonymous] = true
+    elsif params[:score_id].present?
+      session[:activity_session_id] = params[:score_id]
     else
       raise 'invalid (impossible) scenario.'
     end
