@@ -123,6 +123,11 @@ class ApplicationController < ActionController::Base
       color: "#D00000",
       fields: [
           {
+            title: "Request ID",
+            value: request.headers['X-Request-ID'] rescue '',
+            short: false
+          },
+          {
             title: "Params Hash",
             value: params.awesome_inspect({plain: true}),
             short: false
