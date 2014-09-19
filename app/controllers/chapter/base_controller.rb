@@ -21,6 +21,8 @@ class Chapter::BaseController < ApplicationController
   def set_activity_session
     if session[:activity_session_id].present?
       @activity_session = StorySession.find(session[:activity_session_id])
+    elsif params[:score_id].present?
+      @activity_session = StorySession.find(params[:score_id])
     elsif session[:anonymous] == true
       @activity_session = StorySession.new(anonymous: true, activity_uid: session[:uid], access_token: session[:access_token])
       @activity_session.save
