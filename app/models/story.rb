@@ -4,6 +4,19 @@ class Story < Empirical::Client::Endpoints::Activity
 
   attr_accessor :chunks, :parsed
 
+  def uid
+    activity.present? ? activity.uid : self['uid']
+  end
+  alias_method :id, :uid
+
+  def instructions_as_text
+    YAML.load(activity.data['instructions']) if activity.present?
+  end
+
+  def body_as_text
+    YAML.load(activity.data['body']) if activity.present?
+  end
+
   def assessment
     self
   end
@@ -14,7 +27,7 @@ class Story < Empirical::Client::Endpoints::Activity
   delegate :questions, to: :chunks
 
   def body_parser
-    body = YAML.load(activity.data.body).gsub("\n", "<br>").html_safe
+    body = YAML.load(activity.data.body.to_s).gsub("\n", "<br>").html_safe
   end
 
   # for form_for etc
@@ -22,6 +35,12 @@ class Story < Empirical::Client::Endpoints::Activity
     ActiveModel::Name.new(Story)
   end
 
+  def as_display_json
+    {
+      body: YAML.load(activity.data.body),
+      id: id
+    }.to_json
+  end
 
   def parsed
     @parsed ||= GrammarParser.new.parse(body_parser)[:questions]
@@ -29,17 +48,6 @@ class Story < Empirical::Client::Endpoints::Activity
 
   def question_quantity_for_rule rule
     3
-  end
-
-  def as_json
-    {
-      body: YAML.load(activity.data.body),
-      id: id
-    }
-  end
-
-  def to_json
-    as_json.to_json
   end
 
 end

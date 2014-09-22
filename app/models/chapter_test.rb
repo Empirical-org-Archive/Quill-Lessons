@@ -44,7 +44,7 @@ module ChapterFlow
   def questions_completed
     rules = current_step.rules.map(&:rule)
     if rules.any? && current_rule.present?
-      rules = rules.select{|rule| rules.index(rule) < rules.index(current_rule)}
+      rules = rules.select{|rule| rules.index(rule).to_i < rules.index(current_rule).to_i}
       questions_total(rules) + @context.params[:question_index].to_i
     else
       slack_debug("Hit 0 on questions completed because rules are missing?")

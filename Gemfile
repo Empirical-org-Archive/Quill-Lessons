@@ -36,7 +36,8 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 
 # API
-gem 'empirical-client', github: 'empirical-org/empirical-client' # path: '../client'
+gem 'empirical-client', github: 'empirical-org/empirical-client'
+# gem 'empirical-client', path: '../client'
 
 # UI HELPERS
 gem 'sass-rails', github: 'rails/sass-rails'

@@ -11,7 +11,9 @@ class Chunk
     @chapter = chapter
     @chunk   = chapter.assessment.chunks[options[:id]]
 
-    raise MissingChunkError if @chunk.nil?
+    # FIXME: commented out because silencing a bug that
+    # probably won't get fixed right away
+    # raise MissingChunkError if @chunk.nil?
 
     %w(word error answer grammar text input).each do |k|
       instance_variable_set("@#{k}", options.fetch(k.to_sym, '').strip)

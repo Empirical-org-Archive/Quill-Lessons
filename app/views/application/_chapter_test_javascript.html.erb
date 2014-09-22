@@ -5,12 +5,12 @@
   var chapterLessons     = new PG.Collections.ChapterLessons;
   var chapterRule        = false;
   var chapterLesson      = false;
-  chapterAssessments.add(<%= @assessment.to_json.html_safe %>);
-  var chapterAssessment  = chapterAssessments.get(<%= @assessment.id.to_json.html_safe %>);
+  chapterAssessments.add(<%= @story.as_display_json.html_safe %>);
+  var chapterAssessment  = chapterAssessments.get(<%= @story.id.to_json.html_safe %>);
 
   // chapter rules
   <%
-      rule_ids = @assessment.chunks.map { |x| x.grammar if x.respond_to?(:grammar) }.compact
+      rule_ids = @story.chunks.map { |x| x.grammar if x.respond_to?(:grammar) }.compact
       rules = Rule.includes(:questions).find(rule_ids)
   -%>
 
@@ -32,7 +32,7 @@
 
   <% end -%>
 
-  <% @assessment.chunks.each_with_index do |chunk, i| %>
+  <% @story.chunks.each_with_index do |chunk, i| %>
  // class: <%= chunk.class %>
 
    <% clean_chunk = chunk.as_json.merge(id: i).to_json.gsub("\\u003C","<").gsub("\\u003E",">").html_safe %>

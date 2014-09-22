@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/empirical-org/empirical-client.git
-  revision: 2b5c82df5c1153baf163bfa5aca2b3431a6496dd
+  revision: ed0cab8b69e14699e700fcf93657e7589a95a40f
   specs:
     empirical-client (0.3.0)
       activesupport

@@ -1,9 +1,8 @@
 .js-acivity-form
-  = form_for @story, url: url_for(controller: 'stories', action: 'save'), layout: 'vertical' do |f|
-    = f.hidden :id
-
-    = f.text :instructions
-    = f.text :body
+  = form_for @story.activity.data, as: :story, url: url_for(controller: 'stories', action: 'save'), layout: 'vertical' do |f|
+    = hidden_field :story, :id
+    = text_area :story, :instructions_as_text
+    = text_area :story, :body_as_text
 
 css:
   textarea {
