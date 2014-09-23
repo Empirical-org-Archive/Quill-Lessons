@@ -21,8 +21,8 @@ class StoriesController < ApplicationController
   end
 
   def save
-    @story.instructions = params[:story][:instructions_as_text].to_yaml
-    @story.body = params[:story][:body_as_text].to_yaml
+    @story.instructions = params[:story][:instructions_as_text]
+    @story.body = params[:story][:body_as_text]
 
     unless @story.save
       render :form
