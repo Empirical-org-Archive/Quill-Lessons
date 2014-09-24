@@ -100,7 +100,7 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
     Raven.extra_context(story_session: self)
 
     if !self.activity_session.nil? && !self.activity_session.data.nil?
-      input = YAML.load(activity_session.data.story_step_input)
+      input = YAML.load(activity_session.data.story_step_input.to_s)
     elsif self.data.present?
       input = data.story_step_input
     end
