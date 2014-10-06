@@ -1,6 +1,12 @@
 class PracticeQuestion < Empirical::Client::Endpoints::Activity
 
+  # for form_for etc
+  def self.model_name
+    ActiveModel::Name.new(PracticeQuestion)
+  end
+
   def rule_position_text= string
+
     array = string.flatten if string.is_a? Array
 
     array ||= JSON.parse(string).map do |item|
@@ -11,7 +17,7 @@ class PracticeQuestion < Empirical::Client::Endpoints::Activity
       end
     end
 
-    self.rule_position = array
+    self['rule_position'] = array
   end
 
   def rule_position
@@ -27,10 +33,10 @@ class PracticeQuestion < Empirical::Client::Endpoints::Activity
     return [] if rule_position.nil?
 
     ids = if rule_position.first.is_a?(Array)
-      rule_position.map(&:first)
-    else
-      rule_position
-    end
+            rule_position.map(&:first)
+          else
+            rule_position
+          end
 
     ids.map{ |id| Rule.find(id) }
   end

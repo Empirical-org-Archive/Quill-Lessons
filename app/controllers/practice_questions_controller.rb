@@ -11,7 +11,7 @@ class PracticeQuestionsController < ApplicationController
   # display form to create / modify activities.
   def form
     if @practice_question.activity.data.nil?
-      @practice_question.activity.data = {instructions: YAML.dump(''), body: YAML.dump('') }
+      @practice_question.activity.data = {rule_position: YAML.dump('')}
     end
   end
 
@@ -20,8 +20,7 @@ class PracticeQuestionsController < ApplicationController
   end
 
   def save
-    @practice_question.instructions = params[:story][:instructions_as_text]
-    @practice_question.body = params[:story][:body_as_text]
+    @practice_question.rule_position_text = params[:practice_question][:rule_position_text]
 
     unless @practice_question.save
       render :form
@@ -31,15 +30,11 @@ class PracticeQuestionsController < ApplicationController
 
   private
 
-  def story_params
-    {instructions: params[:story][:instructions_as_text].to_yaml, body: params[:story][:body_as_text].to_yaml}
-  end
-
   def load_record
 
-    id = params[:uid] || params[:story][:id]
+    id = params[:uid] || params[:practice_question][:id]
 
-    @practice_question = Story.find(id)
+    @practice_question = PracticeQuestion.find(id)
     @assessment = @practice_question
   end
 end
