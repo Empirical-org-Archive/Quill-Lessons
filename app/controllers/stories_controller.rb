@@ -10,6 +10,9 @@ class StoriesController < ApplicationController
 
   # display form to create / modify activities.
   def form
+    if @story.activity.data.nil?
+      @story.activity.data = {instructions: YAML.dump(''), body: YAML.dump('') }
+    end
   end
 
   def module
