@@ -1,6 +1,37 @@
 doctype html
 html
-  = render 'application/head'
+  head
+    title Quill
+    = stylesheet_link_tag 'application', media: 'all' , 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'codemirror', 'data-turbolinks-track' => true
+
+    = csrf_meta_tags
+
+    link href="/images/favicon.gif" rel="icon" type="image/ico"
+    link href="http://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css"
+
+    erb:
+      <!--[if !IE 7]>
+        <style type="text/css">
+          #wrap { display: table ; height: 100% }
+        </style>
+      <![endif]-->
 
   body style="background: none transparent ; height: auto"
-    .container style="width: 960px"= yield
+
+    .container style="width: 960px"
+      = yield
+
+
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = javascript_include_tag 'cms',         'data-turbolinks-track' => true
+
+    javascript:
+      window.quill = new Quill('#{ENV['QUILL_SITE_URL']}');
+
+      jQuery(function ($) {
+        quill.autoResize();
+        quill.listen();
+        quill.sendMessage('iframeReady');
+      });
+

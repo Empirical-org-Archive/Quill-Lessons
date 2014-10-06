@@ -44,4 +44,8 @@ EmpiricalGrammar::Application.configure do
   config.sass.debug_info = true
 
   config.action_mailer.default_url_options = { :host => 'quill.dev' }
+
+  # cleanup view for easier debuggin'
+  Slim::Engine.set_default_options :pretty => true, :sort_attrs => false
+
 end

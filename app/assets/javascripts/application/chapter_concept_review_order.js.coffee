@@ -100,3 +100,4 @@ loadSeriesRoots = ->
 
 jQuery(document).on 'page:load', loadSeriesRoots
 jQuery loadSeriesRoots
+
