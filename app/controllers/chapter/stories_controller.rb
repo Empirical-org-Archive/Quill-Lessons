@@ -6,10 +6,11 @@ class Chapter::StoriesController < Chapter::BaseController
   end
 
   def create
-    Raven.extra_context(params: params)
-    Raven.extra_context(session: session.to_hash)
-    Raven.extra_context(activity_session: @activity_session)
-
+    if defined?(Raven)
+      Raven.extra_context(params: params)
+      Raven.extra_context(session: session.to_hash)
+      Raven.extra_context(activity_session: @activity_session)
+    end
     # do some error handling if bad data presented
     if params[:_json].blank?
       render layout: false and return
@@ -17,6 +18,7 @@ class Chapter::StoriesController < Chapter::BaseController
 
     @activity_session.start!
     @activity_session.check_submission(params[:_json])
+    @activity_session.anonymous! if session[:anonymous]
 
     @activity_session.save
     session[:activity_session_id] = @activity_session.activity_session.uid

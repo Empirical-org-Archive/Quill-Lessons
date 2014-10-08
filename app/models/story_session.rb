@@ -49,6 +49,10 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
     self.state = "started"
   end
 
+  def anonymous!
+    self.anonymous = true
+  end
+
   def check_submission(input)
     self.story_step_input = input.map { |x| Hashie::Mash.new(x) }
 
@@ -80,13 +84,14 @@ class StorySession < Empirical::Client::Endpoints::ActivitySession
 
   def inputs
 
-    if self.anonymous == true
-      # compat; needs proper fixing
-      RuleQuestionInput.where(activity_session_id: nil)
-    elsif !activity_session.try(:uid).blank?
+    if activity_session && !activity_session.try(:uid).blank?
       RuleQuestionInput.where(activity_session_id: activity_session.uid)
+    elsif self.anonymous == true
+      RuleQuestionInput.where(activity_session_id: nil)
     else
-      Raven.extra_context(story_session: self)
+      if defined?(Raven)
+        Raven.extra_context(story_session: self)
+      end
       raise "some kind of hell"
     end
   end
