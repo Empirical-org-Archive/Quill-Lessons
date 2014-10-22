@@ -21,7 +21,14 @@ class PracticeQuestion < Empirical::Client::Endpoints::Activity
   end
 
   def rule_position
-    x = activity.nil? ? self['rule_position'] : activity.data.rule_position
+    if activity.nil?
+      x = self['rule_position']
+    elsif activity.data.try(:rule_position).present?
+      x = activity.data.try(:rule_position)
+    else
+      x = activity.rule_position
+    end
+
     x.kind_of?(String) ? YAML.load(x) : x
   end
 
