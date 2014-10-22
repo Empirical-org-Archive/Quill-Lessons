@@ -20,6 +20,7 @@ class Chapter::PracticeController < Chapter::BaseController
   end
 
   def index
+    Rails.logger.info "Chapter is #{@chapter.inspect}..."
     redirect_to send("chapter_#{params[:step]}_path", @chapter.id, @chapter_test.step(params[:step].to_sym).rules.first.id)
   end
 
