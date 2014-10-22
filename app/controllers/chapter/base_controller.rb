@@ -1,11 +1,11 @@
 class Chapter::BaseController < ApplicationController
 
-  before_filter :find_assignment
-  before_filter :set_activity_session
-
   prepend_before_action :requires_activity_session!
+  prepend_before_action :set_activity_session
+          before_action :find_assignment
 
   layout 'chapter_test'
+
   class FlowError < StandardError ; end
 
   def find_assignment
