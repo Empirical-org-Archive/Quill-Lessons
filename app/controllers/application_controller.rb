@@ -116,7 +116,7 @@ class ApplicationController < ActionController::Base
   end
 
   def quill_iframe
-    response.headers['X-Frame-Options'] = "ALLOW-FROM http://empirical-grammar-staging.herokuapp.com"
+    response.headers['X-Frame-Options'] = ''
   end
 
   def slack_debug(msg, extras={})
