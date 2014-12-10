@@ -67,7 +67,7 @@ gem 'honey-auth'#, path: '../honey-auth'
 
 # DEPLOYMENT
 gem 'slack-notifier' # event prompting
-gem 'sentry-raven' # error tracking
+gem 'sentry-raven', '>= 0.12.2' # error tracking
 
 group :production, :staging do
   gem 'rails_12factor'
