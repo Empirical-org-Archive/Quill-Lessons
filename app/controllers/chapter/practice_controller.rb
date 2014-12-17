@@ -10,12 +10,14 @@ class Chapter::PracticeController < Chapter::BaseController
 
   def show
     if params[:question_index].blank?
+      # FIXME: What is params step ID and why is this dynamic parameter everywhere?
       params[:"#{params[:step]}_id"] = params.delete(:id)
       params[:question_index] = 1
       redirect_to url_for(params.merge(id: nil))
       return
     end
 
+    # FIXME: practice! method not defined anywhere
     @activity_session.practice! if @activity_session.unstarted?
   end
 
@@ -27,6 +29,7 @@ class Chapter::PracticeController < Chapter::BaseController
 
   def verify
     update_score
+    # FIXME: Duplicated in verify_status.
     input = @activity_session.inputs.where(step: params[:step], rule_question_id: params[:lesson_input].first.first).first
     render json: input.as_json(methods: [:first_grade, :second_grade])
   end

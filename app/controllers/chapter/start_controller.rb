@@ -6,7 +6,9 @@ class Chapter::StartController < Chapter::BaseController
     render layout: 'application'
   end
 
+  # Save the score for the activity and present results?
   def final
+    # Generate the StorySession percentage value
     @score.finalize!
     @checker = StoryChecker.new(@score, params[:_json])
     render layout: 'application'

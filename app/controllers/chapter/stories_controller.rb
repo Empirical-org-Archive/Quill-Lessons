@@ -26,6 +26,7 @@ class Chapter::StoriesController < Chapter::BaseController
     # sugar, for ui
     @checker = @activity_session.story_checker
 
+    # FIXME: Why no layout here, but there are some layouts that seem to be used elsewhere
     render layout: false
   end
 end

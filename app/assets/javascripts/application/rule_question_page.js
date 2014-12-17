@@ -1,5 +1,6 @@
 window.ruleQuestionPage = function ruleQuestionPage ($page) {
   $form = $page.find('form');
+  // FIXME: What on earth is this?
   $$ = $form.find.bind($form);
   $actions = $$('.chapter-test-question-actions');
 
@@ -27,10 +28,12 @@ window.ruleQuestionPage = function ruleQuestionPage ($page) {
   }
 
   function failed (step) {
+    // FIXME: Avoid == in JS
     setStepClass((step == 'first') ? 'first-try' : 'second-try');
     if (step == 'second') bypass();
   }
 
+  // FIXME: Unused, remove?
   function ProcessAjaxResponse (data) {
     return queue.AddMessageToQueue(data);
   }
@@ -56,6 +59,7 @@ window.ruleQuestionPage = function ruleQuestionPage ($page) {
     $.post('/verify_question', $form.serialize())
       .success(verify)
       .fail(function (err) {
+        // FIXME: Avoid debugger statements in production code. Might help to lint this code.
         debugger;
       });
 
@@ -76,6 +80,7 @@ window.ruleQuestionPage = function ruleQuestionPage ($page) {
 
   window.Cheater = cheat;
 
+  // FIXME: Why verify the answer on page load? No answer is given yet, right?
   $.get('/verify_question', $form.serialize()).success(verify);
   $page.on('click', '.btn.next', checkAnswer);
 };

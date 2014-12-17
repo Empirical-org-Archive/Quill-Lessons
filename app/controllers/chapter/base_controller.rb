@@ -38,6 +38,7 @@ class Chapter::BaseController < ApplicationController
 
     # for compat...
     @score = @activity_session
+    # FIXME: Model should not depend on an instance of the controller
     @chapter_test = ChapterTest.new(self)
   end
 

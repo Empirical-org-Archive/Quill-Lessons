@@ -174,6 +174,7 @@ class ChapterTest
   end
 
   def score
+    # FIXME: Yikes.
     @context.instance_variable_get(:@score)
   end
 

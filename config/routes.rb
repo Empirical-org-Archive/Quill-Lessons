@@ -43,6 +43,7 @@ EmpiricalGrammar::Application.routes.draw do
       get ':question_index' => :show
     end
 
+    # FIXME: an extra controller reference here
     resources :review, controller: 'practice', step: 'review', controller: 'chapter/practice' do
       get ':question_index' => :show
       get ':question_index/cheat' => :cheat
@@ -67,6 +68,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :rules
   end
 
+  # FIXME: Same set of routes defined above.
   patch 'verify_question' => 'chapter/practice#verify'
   get   'verify_question' => 'chapter/practice#verify_status'
   patch 'cheat'           => 'chapter/practice#cheat'
