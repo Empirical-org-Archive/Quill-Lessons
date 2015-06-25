@@ -80,6 +80,10 @@ class ApplicationController < ActionController::Base
   # this method checks for the presence of an auth token and redirects to the
   # oauth provider if one is not found.
   def access_token!
+    if session[:access_token].present?
+      Empirical::Client.configuration.access_token = session[:access_token]
+    end
+    
     if session[:access_token].blank?
       redirect_to oauth_redirect_path(back: request.fullpath)
       return false
