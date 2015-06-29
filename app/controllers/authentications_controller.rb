@@ -2,6 +2,7 @@ class AuthenticationsController < ApplicationController
   skip_before_action :authenticate!
 
   def redirect
+    puts "\n in authenticatison controller, redirect uri : \n #{redirect_uri.to_json}"
     redirect_to client.auth_code.authorize_url(redirect_uri: redirect_uri)
   end
 
