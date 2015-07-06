@@ -66,7 +66,7 @@ window.Quill = function Quill (host, options) {
   this.options = options;
 
   // assign host.
-  this.host = host + "/api/v1";
+  this.host = host + "api/v1";
 
   if (!host) this.host = "<%= ENV['QUILL_API_URL'] %>";
   console.log('host', this.host)
